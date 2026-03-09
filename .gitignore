@@ -1,0 +1,21 @@
+# Node
+node_modules/
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Java
+java-backend/target/
+java-backend/*.jar
+
+# IDE
+.vscode/settings.json
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local

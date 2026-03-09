@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "mcp-fetch-server"],
+      "disabled": false,
+      "autoApprove": [
+        "fetch_html",
+        "fetch_json", 
+        "fetch_txt",
+        "fetch_markdown"
+      ]
+    }
+  }
+}

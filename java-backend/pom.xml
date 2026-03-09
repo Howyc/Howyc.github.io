@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Maven 项目配置文件 (pom.xml)
+    Maven 是 Java 项目的构建工具，类似于前端的 npm
+    这个文件定义了项目的依赖、构建配置等
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- Maven 模型版本，固定为 4.0.0 -->
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- 
+        继承 Spring Boot 父项目
+        这样可以自动获得 Spring Boot 的默认配置和依赖版本管理
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/>
+    </parent>
+    
+    <!-- 项目基本信息 -->
+    <groupId>com.example</groupId>           <!-- 组织/公司标识 -->
+    <artifactId>fetch-demo</artifactId>       <!-- 项目名称 -->
+    <version>0.0.1-SNAPSHOT</version>         <!-- 版本号 -->
+    <name>fetch-demo</name>                   <!-- 项目显示名 -->
+    <description>学习 MCP 和 Spring Boot 的演示项目</description>
+    
+    <!-- Java 版本配置 -->
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    
+    <!-- 项目依赖 -->
+    <dependencies>
+        <!-- 
+            Spring Boot Web Starter
+            包含了构建 Web 应用所需的所有依赖：
+            - Spring MVC (处理 HTTP 请求)
+            - 内嵌 Tomcat 服务器
+            - JSON 序列化 (Jackson)
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- 
+            Spring Data JPA
+            JPA (Java Persistence API) 是 Java 的数据库操作标准
+            Spring Data JPA 让数据库操作变得非常简单：
+            - 自动生成 SQL 语句
+            - 自动创建数据库表
+            - 只需定义接口，不用写实现代码
+            
+            类比前端：就像 Prisma 或 TypeORM
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- 
+            SQLite JDBC 驱动
+            JDBC (Java Database Connectivity) 是 Java 连接数据库的标准接口
+            这个驱动让 Java 可以连接 SQLite 数据库
+            
+            SQLite 是一个轻量级的文件数据库：
+            - 不需要安装数据库服务器
+            - 数据存储在一个文件中
+            - 非常适合学习和小型项目
+        -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.1.0</version>
+        </dependency>
+        
+        <!-- 
+            Hibernate SQLite 方言
+            Hibernate 是 JPA 的实现框架
+            方言 (Dialect) 告诉 Hibernate 如何生成特定数据库的 SQL
+            不同数据库的 SQL 语法略有不同，方言负责处理这些差异
+        -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-community-dialects</artifactId>
+        </dependency>
+        
+        <!-- 
+            Spring Boot 测试依赖
+            用于编写单元测试和集成测试
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <!-- 构建配置 -->
+    <build>
+        <plugins>
+            <!-- 
+                Spring Boot Maven 插件
+                用于打包可执行的 JAR 文件
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
