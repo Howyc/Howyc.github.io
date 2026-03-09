@@ -72,4 +72,7 @@ export default defineConfig({
   markdown: {
     lineNumbers: true,
   },
+
+  // 忽略死链检查（外部链接和跨项目引用）
+  ignoreDeadLinks: true,
 })
