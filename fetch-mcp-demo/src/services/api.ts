@@ -1,6 +1,6 @@
 import type { User, RawUser, Post, SaveResult } from '../types';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080') + '/api';
 const JSONPLACEHOLDER_URL = 'https://jsonplaceholder.typicode.com';
 
 // ========== 后端统一响应结构 ==========
