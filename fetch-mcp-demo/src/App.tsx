@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { LoginPage } from './components/LoginPage'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { UserCardEditable } from './components/UserCardEditable'
 import { PostCard } from './components/PostCard'
 import { EditModal } from './components/EditModal'
@@ -16,6 +20,16 @@ import {
 import type { User, Post, SaveResult, DataSource } from './types'
 
 function App() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  // 监听全局 auth:logout 事件（api.ts 收到 401 时触发）
+  useEffect(() => {
+    const handler = () => { logout(); navigate('/login') }
+    window.addEventListener('auth:logout', handler)
+    return () => window.removeEventListener('auth:logout', handler)
+  }, [logout, navigate])
+
   const [activeSource, setActiveSource] = useState<DataSource | 'playground'>('users')
 
   // 用户数据
@@ -505,4 +519,21 @@ function App() {
   )
 }
 
-export default App
+function AppWithAuth() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/*" element={
+            <ProtectedRoute>
+              <App />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  )
+}
+
+export default AppWithAuth
