@@ -10,8 +10,5 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# 数据目录
-RUN mkdir -p /app/data
-
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
