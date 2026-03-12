@@ -5,52 +5,54 @@ import { useState } from 'react'
  * 帮助你直接在浏览器里测试后端接口，理解每个接口的作用和返回数据格式。
  */
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+
 const API_EXAMPLES = [
   {
     category: '健康检查',
     items: [
-      { label: '服务状态', method: 'GET', url: 'http://localhost:8080/api/health', body: null },
+      { label: '服务状态', method: 'GET', path: '/api/health', body: null },
     ]
   },
   {
     category: '用户查询',
     items: [
-      { label: '获取所有用户', method: 'GET', url: 'http://localhost:8080/api/db/users', body: null },
-      { label: '按 ID 查询用户', method: 'GET', url: 'http://localhost:8080/api/db/users/detail?id=1', body: null },
-      { label: '按城市查询', method: 'GET', url: 'http://localhost:8080/api/db/users/by-city?city=Gwenborough', body: null },
-      { label: '按邮箱搜索', method: 'GET', url: 'http://localhost:8080/api/db/users/search?email=gmail', body: null },
-      { label: '获取城市列表', method: 'GET', url: 'http://localhost:8080/api/db/cities', body: null },
-      { label: '用户统计', method: 'GET', url: 'http://localhost:8080/api/db/count', body: null },
+      { label: '获取所有用户', method: 'GET', path: '/api/db/users', body: null },
+      { label: '按 ID 查询用户', method: 'GET', path: '/api/db/users/detail?id=1', body: null },
+      { label: '按城市查询', method: 'GET', path: '/api/db/users/by-city?city=Gwenborough', body: null },
+      { label: '按邮箱搜索', method: 'GET', path: '/api/db/users/search?email=gmail', body: null },
+      { label: '获取城市列表', method: 'GET', path: '/api/db/cities', body: null },
+      { label: '用户统计', method: 'GET', path: '/api/db/count', body: null },
     ]
   },
   {
     category: '帖子查询',
     items: [
-      { label: '获取所有帖子', method: 'GET', url: 'http://localhost:8080/api/db/posts', body: null },
-      { label: '按 ID 查询帖子', method: 'GET', url: 'http://localhost:8080/api/db/posts/detail?id=1', body: null },
-      { label: '按用户 ID 查询', method: 'GET', url: 'http://localhost:8080/api/db/posts/by-user?userId=1', body: null },
-      { label: '按标题搜索', method: 'GET', url: 'http://localhost:8080/api/db/posts/search?title=sunt', body: null },
+      { label: '获取所有帖子', method: 'GET', path: '/api/db/posts', body: null },
+      { label: '按 ID 查询帖子', method: 'GET', path: '/api/db/posts/detail?id=1', body: null },
+      { label: '按用户 ID 查询', method: 'GET', path: '/api/db/posts/by-user?userId=1', body: null },
+      { label: '按标题搜索', method: 'GET', path: '/api/db/posts/search?title=sunt', body: null },
     ]
   },
   {
     category: '用户增删改',
     items: [
       {
-        label: '新增用户', method: 'POST', url: 'http://localhost:8080/api/db/users',
+        label: '新增用户', method: 'POST', path: '/api/db/users',
         body: JSON.stringify({ name: '张三', username: 'zhangsan', email: 'zhangsan@example.com', city: 'Beijing' }, null, 2)
       },
       {
-        label: '更新用户', method: 'PUT', url: 'http://localhost:8080/api/db/users/update?id=1',
+        label: '更新用户', method: 'PUT', path: '/api/db/users/update?id=1',
         body: JSON.stringify({ name: '更新后的名字', email: 'updated@example.com' }, null, 2)
       },
-      { label: '删除用户', method: 'DELETE', url: 'http://localhost:8080/api/db/users/delete?id=99', body: null },
+      { label: '删除用户', method: 'DELETE', path: '/api/db/users/delete?id=99', body: null },
     ]
   },
   {
     category: '外部 API 代理',
     items: [
-      { label: 'GitHub 用户信息', method: 'GET', url: 'http://localhost:8080/api/github/users/octocat', body: null },
-      { label: 'JSONPlaceholder 用户', method: 'GET', url: 'http://localhost:8080/api/test/users', body: null },
+      { label: 'GitHub 用户信息', method: 'GET', path: '/api/github/users/octocat', body: null },
+      { label: 'JSONPlaceholder 用户', method: 'GET', path: '/api/test/users', body: null },
     ]
   },
 ]
@@ -66,7 +68,7 @@ function getMethodClass(method: string) {
 }
 
 export function ApiPlayground() {
-  const [url, setUrl] = useState('http://localhost:8080/api/health')
+  const [url, setUrl] = useState(`${API_BASE}/api/health`)
   const [method, setMethod] = useState('GET')
   const [body, setBody] = useState('')
   const [response, setResponse] = useState<string | null>(null)
@@ -102,9 +104,9 @@ export function ApiPlayground() {
     }
   }
 
-  const loadExample = (item: { method: string; url: string; body: string | null }) => {
+  const loadExample = (item: { method: string; path: string; body: string | null }) => {
     setMethod(item.method)
-    setUrl(item.url)
+    setUrl(`${API_BASE}${item.path}`)
     setBody(item.body || '')
     setResponse(null)
     setStatus(null)
@@ -129,7 +131,7 @@ export function ApiPlayground() {
                 <button
                   key={item.label}
                   onClick={() => loadExample(item)}
-                  className={`endpoint-btn${url === item.url ? ' active' : ''}`}
+                  className={`endpoint-btn${url === `${API_BASE}${item.path}` ? ' active' : ''}`}
                 >
                   <span className={getMethodClass(item.method)}>{item.method}</span>
                   {item.label}
