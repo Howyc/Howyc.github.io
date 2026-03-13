@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 /**
  * API 练习场组件
@@ -76,7 +77,8 @@ export function ApiPlayground() {
   const [status, setStatus] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
   const [elapsed, setElapsed] = useState<number | null>(null)
-  const { token } = useAuth()
+  const { token, logout } = useAuth()
+  const navigate = useNavigate()
 
   const sendRequest = async () => {
     setLoading(true)
@@ -88,6 +90,11 @@ export function ApiPlayground() {
       const options: RequestInit = { method, headers }
       if (body && method !== 'GET') options.body = body
       const res = await fetch(url, options)
+      if (res.status === 401) {
+        logout()
+        navigate('/login')
+        return
+      }
       setStatus(res.status)
       setElapsed(Date.now() - start)
       const text = await res.text()
