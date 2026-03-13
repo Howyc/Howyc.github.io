@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
 
 /**
  * API 练习场组件
@@ -75,16 +76,16 @@ export function ApiPlayground() {
   const [status, setStatus] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
   const [elapsed, setElapsed] = useState<number | null>(null)
+  const { token } = useAuth()
 
   const sendRequest = async () => {
     setLoading(true)
     setResponse(null)
     const start = Date.now()
     try {
-      const options: RequestInit = {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-      }
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+      if (token) headers['Authorization'] = `Bearer ${token}`
+      const options: RequestInit = { method, headers }
       if (body && method !== 'GET') options.body = body
       const res = await fetch(url, options)
       setStatus(res.status)

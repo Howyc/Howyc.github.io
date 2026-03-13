@@ -63,11 +63,9 @@ export async function fetchExternalUsers(): Promise<User[]> {
 }
 
 export async function saveUsersToBackend(users: User[]): Promise<SaveResult> {
-  const res = await fetch(`${API_BASE}/users/batch`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(users),
-  });
-  const result = await unwrap<SaveResult>(res);
-  return result;
+  return unwrap<SaveResult>(await authFetch(`${API_BASE}/users/batch`, {
+    method: 'POST', body: JSON.stringify(users),
+  }));
 }
 
 export async function fetchDatabaseUsers(): Promise<User[]> {
@@ -119,11 +117,9 @@ export async function fetchExternalPosts(): Promise<Post[]> {
 }
 
 export async function savePostsToBackend(posts: Post[]): Promise<SaveResult> {
-  const res = await fetch(`${API_BASE}/posts/batch`, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(posts),
-  });
-  const result = await unwrap<SaveResult>(res);
-  return result;
+  return unwrap<SaveResult>(await authFetch(`${API_BASE}/posts/batch`, {
+    method: 'POST', body: JSON.stringify(posts),
+  }));
 }
 
 export async function fetchDatabasePosts(): Promise<Post[]> {
@@ -137,7 +133,7 @@ export async function createPost(post: Omit<Post, 'id'>): Promise<Post> {
 }
 
 export async function updatePost(id: number, post: Partial<Post>): Promise<Post> {
-  return unwrap<Post>(await authFetch(`${API_BASE}/db/posts/update7?id=${id}`, {
+  return unwrap<Post>(await authFetch(`${API_BASE}/db/posts/update?id=${id}`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(post),
   }));
 }
