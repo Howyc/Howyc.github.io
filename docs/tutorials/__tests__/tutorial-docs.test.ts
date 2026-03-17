@@ -20,8 +20,10 @@ describe('教程文件完整性', () => {
     'index.md',
     'project-setup.md',
     'frontend-knowledge.md',
+    'frontend-deployment.md',
     'backend-knowledge.md',
-    'deployment.md',
+    'backend-deployment.md',
+    'docs-deployment.md',
   ]
 
   it.each(expectedFiles)('%s exists and is non-empty', (file) => {
@@ -45,16 +47,26 @@ describe('VitePress 配置', () => {
     expect(config).toContain("'/tutorials/'")
   })
 
-  it('sidebar chapters are in correct order', () => {
+  it('sidebar has frontend module in correct order', () => {
     const setupIdx = config.indexOf('project-setup')
-    const frontendIdx = config.indexOf('frontend-knowledge')
-    const backendIdx = config.indexOf('backend-knowledge')
-    const deployIdx = config.indexOf('deployment')
+    const frontendKnowledgeIdx = config.indexOf('frontend-knowledge')
+    const frontendDeployIdx = config.indexOf('frontend-deployment')
 
     expect(setupIdx).toBeGreaterThan(-1)
-    expect(frontendIdx).toBeGreaterThan(setupIdx)
-    expect(backendIdx).toBeGreaterThan(frontendIdx)
-    expect(deployIdx).toBeGreaterThan(backendIdx)
+    expect(frontendKnowledgeIdx).toBeGreaterThan(setupIdx)
+    expect(frontendDeployIdx).toBeGreaterThan(frontendKnowledgeIdx)
+  })
+
+  it('sidebar has backend module in correct order', () => {
+    const backendKnowledgeIdx = config.indexOf('backend-knowledge')
+    const backendDeployIdx = config.indexOf('backend-deployment')
+
+    expect(backendKnowledgeIdx).toBeGreaterThan(-1)
+    expect(backendDeployIdx).toBeGreaterThan(backendKnowledgeIdx)
+  })
+
+  it('sidebar has docs-deployment', () => {
+    expect(config).toContain('docs-deployment')
   })
 })
 
@@ -72,11 +84,13 @@ describe('教程首页内容', () => {
     expect(index).toContain('技术栈')
   })
 
-  it('contains chapter links', () => {
+  it('contains chapter links for all modules', () => {
     expect(index).toContain('./project-setup')
     expect(index).toContain('./frontend-knowledge')
+    expect(index).toContain('./frontend-deployment')
     expect(index).toContain('./backend-knowledge')
-    expect(index).toContain('./deployment')
+    expect(index).toContain('./backend-deployment')
+    expect(index).toContain('./docs-deployment')
   })
 
   it('contains reading suggestions', () => {
@@ -120,6 +134,21 @@ describe('frontend-knowledge.md 关键词覆盖', () => {
   })
 })
 
+describe('frontend-deployment.md 关键词覆盖', () => {
+  const content = readTutorial('frontend-deployment.md')
+  const keywords = [
+    'Vercel',
+    'vercel.json',
+    'VITE_API_BASE_URL',
+    'GitHub Actions',
+    'deploy-frontend.yml',
+  ]
+
+  it.each(keywords)('contains keyword: %s', (kw) => {
+    expect(content).toContain(kw)
+  })
+})
+
 describe('backend-knowledge.md 关键词覆盖', () => {
   const content = readTutorial('backend-knowledge.md')
   const keywords = [
@@ -142,16 +171,28 @@ describe('backend-knowledge.md 关键词覆盖', () => {
   })
 })
 
-describe('deployment.md 关键词覆盖', () => {
-  const content = readTutorial('deployment.md')
+describe('backend-deployment.md 关键词覆盖', () => {
+  const content = readTutorial('backend-deployment.md')
   const keywords = [
     'TiDB Cloud',
     'Render',
     'Dockerfile',
-    'Vercel',
-    'vercel.json',
+    'application-prod.properties',
+    'SPRING_PROFILES_ACTIVE',
+  ]
+
+  it.each(keywords)('contains keyword: %s', (kw) => {
+    expect(content).toContain(kw)
+  })
+})
+
+describe('docs-deployment.md 关键词覆盖', () => {
+  const content = readTutorial('docs-deployment.md')
+  const keywords = [
     'GitHub Pages',
     'GitHub Actions',
+    'deploy-docs.yml',
+    'VitePress',
   ]
 
   it.each(keywords)('contains keyword: %s', (kw) => {
@@ -166,8 +207,10 @@ describe('跨文档链接', () => {
     'index.md',
     'project-setup.md',
     'frontend-knowledge.md',
+    'frontend-deployment.md',
     'backend-knowledge.md',
-    'deployment.md',
+    'backend-deployment.md',
+    'docs-deployment.md',
   ]
 
   it('at least one tutorial links to /projects/fetch-mcp-demo', () => {

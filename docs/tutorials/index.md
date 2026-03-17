@@ -27,33 +27,49 @@ outline: deep
 
 ## 章节目录
 
-本教程共分为四章，建议按顺序阅读：
+本教程共分为七章，按前后端分模块组织，建议按顺序阅读：
 
-### [第 1 章：前端项目创建](./project-setup)
+### 前端模块
+
+#### [第 1 章：前端项目创建](./project-setup)
 
 从 `npm create vite@latest` 开始，讲解如何创建一个 React + TypeScript 项目。涵盖 Vite 配置、TypeScript 配置体系、入口文件解析、依赖管理和 Arco Design 组件库集成。
 
-### [第 2 章：前端知识点详解](./frontend-knowledge)
+#### [第 2 章：前端知识点详解](./frontend-knowledge)
 
 深入讲解项目中用到的前端核心技术：React Hooks（useState / useEffect / useContext）、TypeScript 类型定义、React Router 路由守卫、AuthContext 认证上下文、API 请求封装和环境变量管理。
 
-### [第 3 章：后端知识点详解](./backend-knowledge)
+#### [第 3 章：前端部署](./frontend-deployment)
+
+将 React 前端部署到 Vercel：项目导入、环境变量配置、vercel.json SPA 路由重写、GitHub Actions 自动部署工作流。包含前端部署检查清单和常见问题解答。
+
+### 后端模块
+
+#### [第 4 章：后端知识点详解](./backend-knowledge)
 
 用前端视角解读 Spring Boot 后端：三层架构（Controller → Service → Repository）、JPA 实体与数据库映射、JWT 认证实现、统一响应格式、CORS 跨域配置、Maven 依赖管理。每段 Java 代码都配有 TypeScript 对比。
 
-### [第 4 章：部署流程](./deployment)
+#### [第 5 章：后端部署](./backend-deployment)
 
-完整的多平台部署指南：TiDB Cloud 数据库配置、Render 后端部署（Docker）、Vercel 前端部署、GitHub Pages 文档站部署、GitHub Actions CI/CD 自动化。包含部署检查清单和常见问题解答。
+将 Spring Boot 后端部署到云端：TiDB Cloud 数据库配置、Render Docker 容器部署、Dockerfile 多阶段构建详解、生产环境配置文件。包含后端部署检查清单和常见问题解答。
+
+### 其他
+
+#### [第 6 章：文档站部署](./docs-deployment)
+
+通过 GitHub Actions 将 VitePress 文档站自动部署到 GitHub Pages。
 
 ## 阅读建议
 
 ### 推荐阅读顺序
 
 ```
-第 1 章（项目创建）→ 第 2 章（前端知识点）→ 第 3 章（后端知识点）→ 第 4 章（部署流程）
+前端模块：第 1 章（项目创建）→ 第 2 章（前端知识点）→ 第 3 章（前端部署）
+后端模块：第 4 章（后端知识点）→ 第 5 章（后端部署）
+其他：第 6 章（文档站部署）
 ```
 
-章节之间有递进关系：第 1、2 章帮你熟悉前端项目结构和核心代码，第 3 章在此基础上引入后端概念并做前后端对比，第 4 章将整个项目部署上线。
+前后端模块可以独立阅读。如果你只关心前端，读完前三章就够了；如果想了解后端，继续读第 4、5 章。
 
 ### 前置知识要求
 

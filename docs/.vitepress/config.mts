@@ -57,10 +57,27 @@ export default defineConfig({
           text: '全栈教程',
           items: [
             { text: '教程首页', link: '/tutorials/' },
+          ],
+        },
+        {
+          text: '前端',
+          items: [
             { text: '前端项目创建', link: '/tutorials/project-setup' },
             { text: '前端知识点详解', link: '/tutorials/frontend-knowledge' },
+            { text: '前端部署', link: '/tutorials/frontend-deployment' },
+          ],
+        },
+        {
+          text: '后端',
+          items: [
             { text: '后端知识点详解', link: '/tutorials/backend-knowledge' },
-            { text: '部署流程', link: '/tutorials/deployment' },
+            { text: '后端部署', link: '/tutorials/backend-deployment' },
+          ],
+        },
+        {
+          text: '其他',
+          items: [
+            { text: '文档站部署', link: '/tutorials/docs-deployment' },
           ],
         },
       ],
