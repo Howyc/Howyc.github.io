@@ -22,6 +22,7 @@ export default defineConfig({
       { text: '博客', link: '/blog/' },
       { text: '项目', link: '/projects/' },
       { text: '笔记', link: '/notes/' },
+      { text: '教程', link: '/tutorials/' },
     ],
 
     sidebar: {
@@ -34,11 +35,32 @@ export default defineConfig({
           ],
         },
       ],
+      '/projects/': [
+        {
+          text: '项目',
+          items: [
+            { text: '项目总览', link: '/projects/' },
+            { text: 'fetch-mcp-demo 详解', link: '/projects/fetch-mcp-demo' },
+          ],
+        },
+      ],
       '/blog/': [
         {
           text: '博客',
           items: [
             { text: '所有文章', link: '/blog/' },
+          ],
+        },
+      ],
+      '/tutorials/': [
+        {
+          text: '全栈教程',
+          items: [
+            { text: '教程首页', link: '/tutorials/' },
+            { text: '前端项目创建', link: '/tutorials/project-setup' },
+            { text: '前端知识点详解', link: '/tutorials/frontend-knowledge' },
+            { text: '后端知识点详解', link: '/tutorials/backend-knowledge' },
+            { text: '部署流程', link: '/tutorials/deployment' },
           ],
         },
       ],

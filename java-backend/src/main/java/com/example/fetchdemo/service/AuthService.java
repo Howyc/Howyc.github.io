@@ -33,9 +33,9 @@ public class AuthService {
 
     public String login(String username, String password) {
         AppUser user = appUserRepository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("用户名或密码错误"));
+                .orElseThrow(() -> new BadCredentialsException("该账号未注册，请先注册"));
         if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            throw new BadCredentialsException("用户名或密码错误");
+            throw new BadCredentialsException("密码错误，请重试");
         }
         return jwtUtil.generateToken(username);
     }
