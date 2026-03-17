@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
-import { LoginPage } from './components/LoginPage'
+
+// 路由级懒加载：LoginPage 和 ApiPlayground 按需加载，减小首屏 bundle
+const LoginPage = lazy(() => import('./components/LoginPage').then(m => ({ default: m.LoginPage })))
+const ApiPlayground = lazy(() => import('./components/ApiPlayground').then(m => ({ default: m.ApiPlayground })))
+
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { UserCardEditable } from './components/UserCardEditable'
 import { PostCard } from './components/PostCard'
 import { EditModal } from './components/EditModal'
-import { ApiPlayground } from './components/ApiPlayground'
 import { Sidebar } from './components/Sidebar'
 import { TopBar } from './components/TopBar'
 import { SkeletonCard } from './components/SkeletonCard'
@@ -306,7 +309,11 @@ function App() {
           {error && <div className="error-message">{error}</div>}
 
           {/* API 练习场 */}
-          {activeSource === 'playground' && <ApiPlayground />}
+          {activeSource === 'playground' && (
+            <Suspense fallback={<div className="empty-state">加载中...</div>}>
+              <ApiPlayground />
+            </Suspense>
+          )}
 
           {/* 操作面板 */}
           {activeSource !== 'playground' && (
@@ -524,7 +531,13 @@ function AppWithAuth() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={
+            <Suspense fallback={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#0f1117' }}>
+              <div style={{ color: '#64748b', fontSize: 14 }}>加载中...</div>
+            </div>}>
+              <LoginPage />
+            </Suspense>
+          } />
           <Route path="/*" element={
             <ProtectedRoute>
               <App />

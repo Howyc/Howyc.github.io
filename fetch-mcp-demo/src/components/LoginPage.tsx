@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import '@arco-design/web-react/dist/css/arco.css'
 import { Form, Input, Button, Alert } from '@arco-design/web-react'
 import { IconUser, IconLock } from '@arco-design/web-react/icon'
 

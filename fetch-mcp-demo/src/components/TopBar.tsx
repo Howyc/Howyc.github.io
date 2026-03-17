@@ -1,6 +1,7 @@
 import { IconMenu } from '../assets/icons';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import '@arco-design/web-react/dist/css/arco.css';
 import { Avatar, Dropdown, Menu, Tag, Spin } from '@arco-design/web-react';
 import { IconUser, IconPoweroff } from '@arco-design/web-react/icon';
 
