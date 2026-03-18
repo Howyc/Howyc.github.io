@@ -1,15 +1,21 @@
 package com.example.fetchdemo.filter;
 
-import com.example.fetchdemo.util.JwtUtil;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.example.fetchdemo.util.JwtUtil;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtFilter implements Filter {
@@ -19,6 +25,7 @@ public class JwtFilter implements Filter {
     private static final List<String> WHITELIST = List.of(
             "/auth/register",
             "/auth/login",
+            "/api/health",
             "/api/posts/",
             "/api/users/batch"
     );
