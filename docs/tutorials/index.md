@@ -59,6 +59,10 @@ outline: deep
 
 通过 GitHub Actions 将 VitePress 文档站自动部署到 GitHub Pages。
 
+#### [第 7 章：OpenClaw 完全指南](./openclaw-guide)
+
+OpenClaw 个人AI助手的完整使用指南，涵盖安装、配置、渠道连接、模型设置、技能使用和高级功能。
+
 ## 阅读建议
 
 ### 推荐阅读顺序
