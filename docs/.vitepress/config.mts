@@ -79,6 +79,7 @@ export default defineConfig({
           items: [
             { text: '文档站部署', link: '/tutorials/docs-deployment' },
             { text: 'OpenClaw 完全指南', link: '/tutorials/openclaw-guide' },
+            { text: 'OpenClaw 安装历程', link: '/tutorials/openclaw-installation-journey' },
           ],
         },
       ],

@@ -63,6 +63,10 @@ outline: deep
 
 OpenClaw 个人AI助手的完整使用指南，涵盖安装、配置、渠道连接、模型设置、技能使用和高级功能。
 
+#### [第 8 章：OpenClaw 安装历程](./openclaw-installation-journey)
+
+记录从零开始安装、配置和使用 OpenClaw 的完整过程，包括环境准备、安装步骤、配置过程、遇到的问题及解决方案。
+
 ## 阅读建议
 
 ### 推荐阅读顺序
