@@ -78,6 +78,7 @@ export default defineConfig({
           text: '其他',
           items: [
             { text: '文档站部署', link: '/tutorials/docs-deployment' },
+            { text: 'OpenClaw 完全指南', link: '/tutorials/openclaw-guide' },
           ],
         },
       ],
