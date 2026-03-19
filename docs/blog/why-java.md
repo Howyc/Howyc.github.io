@@ -14,4 +14,4 @@
 
 ## 相关笔记
 
-- [Java 零基础入门](../notes/java-zero-to-one) — 专门写给前端开发者的语法指南
+- [Java 零基础入门](../backend/java/java-zero-to-one) — 专门写给前端开发者的语法指南

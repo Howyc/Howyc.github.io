@@ -481,7 +481,7 @@ React Router 匹配到 path="/*"
 
 AuthContext 是本项目的认证核心，使用 React Context API 实现全局认证状态管理。它负责 JWT Token 的存储、读取、登录和登出操作，让任意组件都能访问当前用户的认证信息。
 
-如果你想了解后端 JWT 认证的实现，可以参考 [后端知识点详解](./backend-knowledge) 中的 JWT 章节，或者阅读 [Java 零基础入门笔记](/notes/java-zero-to-one) 了解 Java 基础。
+如果你想了解后端 JWT 认证的实现，可以参考 [后端知识点详解](./backend-knowledge) 中的 JWT 章节，或者阅读 [Java 零基础入门笔记](/backend/java/java-zero-to-one) 了解 Java 基础。
 
 ### Context 创建与类型定义
 
@@ -887,4 +887,4 @@ SECRET_KEY=abc                            # 前端无法访问，只有服务端
 
 👉 [继续阅读：第 3 章 — 后端知识点详解](./backend-knowledge)
 
-如果你想了解更多 Java 基础知识，可以参考 [Java 零基础入门笔记](/notes/java-zero-to-one)。
+如果你想了解更多 Java 基础知识，可以参考 [Java 零基础入门笔记](/backend/java/java-zero-to-one)。

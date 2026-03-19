@@ -498,4 +498,4 @@ Arco Design 支持按需导入（tree-shaking），Vite 在构建时会自动移
 
 👉 [继续阅读：第 2 章 — 前端知识点详解](./frontend-knowledge)
 
-如果你想了解更多 Java 后端知识，也可以参考 [Java 零基础入门笔记](/notes/java-zero-to-one)。
+如果你想了解更多 Java 后端知识，也可以参考 [Java 零基础入门笔记](/backend/java/java-zero-to-one)。

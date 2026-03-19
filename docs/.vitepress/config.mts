@@ -30,14 +30,16 @@ export default defineConfig({
     sidebar: {
       '/frontend/': [
         {
+          text: 'TypeScript',
+          items: [
+            { text: 'TypeScript 项目实战要点', link: '/frontend/typescript/typescript-essentials' },
+          ],
+        },
+        {
           text: 'React 开发',
           items: [
             { text: '前端知识点详解', link: '/frontend/react/frontend-knowledge' },
           ],
-        },
-        {
-          text: 'TypeScript',
-          items: [],
         },
         {
           text: '工程化实践',
