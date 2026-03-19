@@ -7,7 +7,7 @@ export default defineConfig({
 
   lang: 'zh-CN',
   title: 'Howyc.dev',
-  description: '全栈成长记录 — React · Spring Boot · 工程实践',
+  description: '前端工程师的个人知识库 — React · Spring Boot · DevOps · 工程实践',
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
@@ -19,25 +19,86 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
-      { text: '博客', link: '/blog/' },
+      { text: '前端', link: '/frontend/' },
+      { text: '后端', link: '/backend/' },
+      { text: 'DevOps', link: '/devops/' },
+      { text: '工具', link: '/tools/' },
       { text: '项目', link: '/projects/' },
-      { text: '笔记', link: '/notes/' },
-      { text: '教程', link: '/tutorials/' },
+      { text: '博客', link: '/blog/' },
     ],
 
     sidebar: {
-      '/notes/': [
+      '/frontend/': [
         {
-          text: 'Java 学习笔记',
+          text: 'React 开发',
           items: [
-            { text: 'Java 零基础入门', link: '/notes/java-zero-to-one' },
-            { text: 'Java 前端视角', link: '/notes/java-for-frontend' },
+            { text: '前端知识点详解', link: '/frontend/react/frontend-knowledge' },
+          ],
+        },
+        {
+          text: 'TypeScript',
+          items: [],
+        },
+        {
+          text: '工程化实践',
+          items: [
+            { text: '前端项目创建', link: '/frontend/engineering/project-setup' },
+          ],
+        },
+      ],
+      '/backend/': [
+        {
+          text: 'Java 语言',
+          items: [
+            { text: 'Java 零基础入门', link: '/backend/java/java-zero-to-one' },
+          ],
+        },
+        {
+          text: 'Spring Boot 框架',
+          items: [
+            { text: 'Java 前端视角', link: '/backend/spring-boot/java-for-frontend' },
+            { text: '后端知识点详解', link: '/backend/spring-boot/backend-knowledge' },
+          ],
+        },
+      ],
+      '/devops/': [
+        {
+          text: '前端部署',
+          items: [
+            { text: '前端部署', link: '/devops/frontend-deploy/frontend-deployment' },
+          ],
+        },
+        {
+          text: '后端部署',
+          items: [
+            { text: '后端部署', link: '/devops/backend-deploy/backend-deployment' },
+          ],
+        },
+        {
+          text: '文档站部署',
+          items: [
+            { text: '文档站部署', link: '/devops/docs-deploy/docs-deployment' },
+          ],
+        },
+      ],
+      '/tools/': [
+        {
+          text: 'OpenClaw',
+          items: [
+            { text: 'OpenClaw 完全指南', link: '/tools/openclaw/openclaw-guide' },
+            { text: 'OpenClaw 安装历程', link: '/tools/openclaw/openclaw-installation-journey' },
+          ],
+        },
+        {
+          text: 'AIGC',
+          items: [
+            { text: 'AIGC 学习路线图', link: '/tools/aigc-learning-path' },
           ],
         },
       ],
       '/projects/': [
         {
-          text: '项目',
+          text: '项目实战',
           items: [
             { text: '项目总览', link: '/projects/' },
             { text: 'fetch-mcp-demo 详解', link: '/projects/fetch-mcp-demo' },
@@ -46,40 +107,10 @@ export default defineConfig({
       ],
       '/blog/': [
         {
-          text: '博客',
+          text: '思考与总结',
           items: [
             { text: '所有文章', link: '/blog/' },
-          ],
-        },
-      ],
-      '/tutorials/': [
-        {
-          text: '全栈教程',
-          items: [
-            { text: '教程首页', link: '/tutorials/' },
-          ],
-        },
-        {
-          text: '前端',
-          items: [
-            { text: '前端项目创建', link: '/tutorials/project-setup' },
-            { text: '前端知识点详解', link: '/tutorials/frontend-knowledge' },
-            { text: '前端部署', link: '/tutorials/frontend-deployment' },
-          ],
-        },
-        {
-          text: '后端',
-          items: [
-            { text: '后端知识点详解', link: '/tutorials/backend-knowledge' },
-            { text: '后端部署', link: '/tutorials/backend-deployment' },
-          ],
-        },
-        {
-          text: '其他',
-          items: [
-            { text: '文档站部署', link: '/tutorials/docs-deployment' },
-            { text: 'OpenClaw 完全指南', link: '/tutorials/openclaw-guide' },
-            { text: 'OpenClaw 安装历程', link: '/tutorials/openclaw-installation-journey' },
+            { text: '为什么学 Java', link: '/blog/why-java' },
           ],
         },
       ],
