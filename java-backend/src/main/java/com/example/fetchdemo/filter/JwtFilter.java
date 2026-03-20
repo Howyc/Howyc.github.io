@@ -25,9 +25,7 @@ public class JwtFilter implements Filter {
     private static final List<String> WHITELIST = List.of(
             "/auth/register",
             "/auth/login",
-            "/api/health",
-            "/api/posts/",
-            "/api/users/batch"
+            "/api/health"
     );
 
     public JwtFilter(JwtUtil jwtUtil) {
@@ -64,7 +62,7 @@ public class JwtFilter implements Filter {
     }
 
     private boolean isWhitelisted(String path) {
-        return WHITELIST.stream().anyMatch(w -> path.equals(w) || path.startsWith(w));
+        return WHITELIST.stream().anyMatch(w -> path.equals(w));
     }
 
     private void sendJsonError(HttpServletResponse response, int status, String message) throws IOException {

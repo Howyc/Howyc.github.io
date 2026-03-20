@@ -19,6 +19,8 @@ import com.example.fetchdemo.common.ApiResponse;
 import com.example.fetchdemo.entity.Post;
 import com.example.fetchdemo.service.PostService;
 
+import jakarta.validation.Valid;
+
 /**
  * 帖子 CRUD 控制器
  *
@@ -116,7 +118,7 @@ public class PostController {
      * 返回 201 Created（HTTP 标准：资源创建成功）
      */
     @PostMapping("/db/posts")
-    public ResponseEntity<ApiResponse<Post>> create(@RequestBody Post post) {
+    public ResponseEntity<ApiResponse<Post>> create(@Valid @RequestBody Post post) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.ok(postService.save(post), "创建成功"));
     }
@@ -128,7 +130,7 @@ public class PostController {
      * 用 post.setId(id) 确保 ID 来自 URL 参数，防止请求体篡改 ID
      */
     @PutMapping("/db/posts/update")
-    public ResponseEntity<ApiResponse<Post>> update(@RequestParam Long id, @RequestBody Post post) {
+    public ResponseEntity<ApiResponse<Post>> update(@RequestParam Long id, @Valid @RequestBody Post post) {
         if (postService.findById(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.fail("帖子不存在，ID: " + id));

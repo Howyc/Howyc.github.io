@@ -127,6 +127,23 @@ public class ApiResponse<T> {
         return new ApiResponse<>(false, null, message);
     }
 
+    /**
+     * 创建失败响应（带数据）
+     *
+     * 使用示例：
+     *   Map<String, String> errors = Map.of("name", "姓名不能为空");
+     *   return ApiResponse.fail("参数校验失败", errors);
+     *   → { "success": false, "data": {"name":"姓名不能为空"}, "message": "参数校验失败" }
+     *
+     * @param <T>     数据类型
+     * @param message 错误信息
+     * @param data    附带的错误详情数据
+     * @return 失败响应对象
+     */
+    public static <T> ApiResponse<T> fail(String message, T data) {
+        return new ApiResponse<>(false, data, message);
+    }
+
     // =====================================================
     // Getter 方法
     // =====================================================

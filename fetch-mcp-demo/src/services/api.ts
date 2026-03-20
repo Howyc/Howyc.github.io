@@ -27,7 +27,12 @@ async function unwrap<T>(response: Response): Promise<T> {
   return body.data;
 }
 
+export const TIMEOUT_MS = 15_000;
+
 function authFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
   const token = localStorage.getItem(TOKEN_KEY)
   const isAuthRoute = url.includes('/auth/')
   const headers: Record<string, string> = {
@@ -37,7 +42,12 @@ function authFetch(url: string, options: RequestInit = {}): Promise<Response> {
   if (token && !isAuthRoute) {
     headers['Authorization'] = `Bearer ${token}`
   }
-  return fetch(url, { ...options, headers })
+  return fetch(url, { ...options, signal: controller.signal, headers })
+    .catch(err => {
+      if (err.name === 'AbortError') throw new Error('请求超时，请检查网络连接');
+      throw err;
+    })
+    .finally(() => clearTimeout(timeoutId));
 }
 
 // ========== 数据转换 ==========

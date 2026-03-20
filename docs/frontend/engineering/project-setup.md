@@ -510,6 +510,6 @@ Arco Design 支持按需导入（tree-shaking），Vite 在构建时会自动移
 
 下一章我们将深入讲解项目中使用的前端核心技术，包括 React Hooks、TypeScript 类型系统、路由守卫和 API 封装。
 
-👉 [继续阅读：第 2 章 — 前端知识点详解](./frontend-knowledge)
+👉 [继续阅读：第 2 章 — 前端知识点详解](../react/frontend-knowledge)
 
 如果你想了解更多 Java 后端知识，也可以参考 [Java 零基础入门笔记](/backend/java/java-zero-to-one)。

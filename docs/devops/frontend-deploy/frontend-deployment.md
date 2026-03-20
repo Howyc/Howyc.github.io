@@ -6,7 +6,7 @@ outline: deep
 
 > 本章讲解如何将 React 前端项目部署到 Vercel，并通过 GitHub Actions 实现自动化部署。所有配置文件来自项目真实源码，每行配置都有中文注释。
 >
-> 前置阅读：建议先阅读 [前端知识点详解](/tutorials/frontend-knowledge) 了解前端项目结构，再阅读本章效果更佳。
+> 前置阅读：建议先阅读 [前端知识点详解](/frontend/react/frontend-knowledge) 了解前端项目结构，再阅读本章效果更佳。
 > 项目详情：参考 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo) 了解完整项目架构。
 
 ## 3.1 Vercel 前端部署

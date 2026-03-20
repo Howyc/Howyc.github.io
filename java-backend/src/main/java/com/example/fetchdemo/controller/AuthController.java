@@ -8,7 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/auth")
@@ -17,9 +20,31 @@ public class AuthController {
     private final AuthService authService;
     private final JwtUtil jwtUtil;
 
+    private final ConcurrentHashMap<String, List<Long>> loginAttempts = new ConcurrentHashMap<>();
+    private static final int MAX_ATTEMPTS = 10;
+    private static final long WINDOW_MS = 60_000L; // 1 分钟
+
     public AuthController(AuthService authService, JwtUtil jwtUtil) {
         this.authService = authService;
         this.jwtUtil = jwtUtil;
+    }
+
+    /**
+     * 检查指定 IP 是否被限流。
+     * 在 1 分钟窗口内最多允许 10 次请求，同时惰性清理过期记录。
+     */
+    boolean isRateLimited(String ip) {
+        long now = System.currentTimeMillis();
+        List<Long> timestamps = loginAttempts.computeIfAbsent(ip, k -> new ArrayList<>());
+        synchronized (timestamps) {
+            // 惰性清理：移除窗口外的旧记录
+            timestamps.removeIf(t -> now - t > WINDOW_MS);
+            if (timestamps.size() >= MAX_ATTEMPTS) {
+                return true;
+            }
+            timestamps.add(now);
+            return false;
+        }
     }
 
     @PostMapping("/register")
@@ -50,7 +75,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<Map<String, String>>> login(@RequestBody Map<String, String> body) {
+    public ResponseEntity<ApiResponse<Map<String, String>>> login(
+            @RequestBody Map<String, String> body,
+            HttpServletRequest request) {
+        String clientIp = request.getRemoteAddr();
+        if (isRateLimited(clientIp)) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                    .body(ApiResponse.fail("请求过于频繁，请稍后再试"));
+        }
+
         String username = body.get("username");
         String password = body.get("password");
 

@@ -8,7 +8,7 @@ outline: deep
 
 本章将结合项目真实源码，逐一讲解前端开发中的核心知识点。每个知识点都配有来自 `fetch-mcp-demo/src/` 的真实代码示例和逐行中文注释，帮助你理解这些技术在实际项目中是如何运作的。
 
-如果你还没有了解项目的整体架构，建议先阅读 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo)。上一章 [前端项目创建](./project-setup) 讲解了项目的初始化流程，本章在此基础上深入技术细节。
+如果你还没有了解项目的整体架构，建议先阅读 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo)。上一章 [前端项目创建](../engineering/project-setup) 讲解了项目的初始化流程，本章在此基础上深入技术细节。
 
 ## React Hooks
 
@@ -481,7 +481,7 @@ React Router 匹配到 path="/*"
 
 AuthContext 是本项目的认证核心，使用 React Context API 实现全局认证状态管理。它负责 JWT Token 的存储、读取、登录和登出操作，让任意组件都能访问当前用户的认证信息。
 
-如果你想了解后端 JWT 认证的实现，可以参考 [后端知识点详解](./backend-knowledge) 中的 JWT 章节，或者阅读 [Java 零基础入门笔记](/backend/java/java-zero-to-one) 了解 Java 基础。
+如果你想了解后端 JWT 认证的实现，可以参考 [后端知识点详解](/backend/spring-boot/backend-knowledge) 中的 JWT 章节，或者阅读 [Java 零基础入门笔记](/backend/java/java-zero-to-one) 了解 Java 基础。
 
 ### Context 创建与类型定义
 
@@ -885,6 +885,6 @@ SECRET_KEY=abc                            # 前端无法访问，只有服务端
 
 这些技术构成了前端应用的核心骨架。下一章我们将进入后端世界，用前端开发者熟悉的视角来理解 Spring Boot 的三层架构和 JWT 认证。
 
-👉 [继续阅读：第 3 章 — 后端知识点详解](./backend-knowledge)
+👉 [继续阅读：第 3 章 — 后端知识点详解](/backend/spring-boot/backend-knowledge)
 
 如果你想了解更多 Java 基础知识，可以参考 [Java 零基础入门笔记](/backend/java/java-zero-to-one)。

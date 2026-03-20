@@ -149,6 +149,7 @@ public class UserService {
      * @param id 用户 ID
      * @return Optional 包装的用户（存在则有值，不存在则为 empty）
      */
+    @SuppressWarnings("null")
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
@@ -231,6 +232,7 @@ public class UserService {
      * @param user 要保存的用户对象
      * @return 保存后的用户（包含数据库生成的字段，如 createdAt）
      */
+    @SuppressWarnings("null")
     public User saveUser(User user) {
         return userRepository.save(user);
     }
@@ -243,6 +245,7 @@ public class UserService {
      *
      * @param id 要删除的用户 ID
      */
+    @SuppressWarnings("null")
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
@@ -322,6 +325,7 @@ public class UserService {
      * @param usersData 用户数据列表（Map 格式，兼容前端和外部 API 两种格式）
      * @return 包含 savedCount、updatedCount、failedCount 的结果 Map
      */
+    @SuppressWarnings("null")
     @Transactional
     public Map<String, Object> batchSaveUsers(List<Map<String, Object>> usersData) {
         log.info("批量保存用户，数量: {}", usersData.size());
@@ -420,7 +424,7 @@ public class UserService {
      * @param id 用户 ID（1-10）
      * @return Optional 包装的用户（API 返回 null 时为 empty）
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "null"})
     public Optional<User> fetchAndSaveUser(Long id) {
         String url = JSONPLACEHOLDER_USERS_URL + "/" + id;
         Map<String, Object> userData = restTemplate.getForObject(url, Map.class);
@@ -473,7 +477,7 @@ public class UserService {
      * @param data 原始 Map 数据
      * @return 转换后的 User 实体
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "null"})
     private User convertFromMap(Map<String, Object> data) {
         User user = new User();
         user.setId(extractUserId(data));
@@ -492,10 +496,10 @@ public class UserService {
 
         // company：可能是字符串（前端格式）或嵌套对象（JSONPlaceholder 格式）
         Object companyObj = data.get("company");
-        if (companyObj instanceof String s) {
-            user.setCompany(s);
-        } else if (companyObj instanceof Map<?, ?> companyMap) {
-            user.setCompany(getString((Map<String, Object>) companyMap, "name"));
+        switch (companyObj) {
+            case String s -> user.setCompany(s);
+            case Map<?, ?> companyMap -> user.setCompany(getString((Map<String, Object>) companyMap, "name"));
+            case null, default -> {}
         }
 
         return user;
@@ -506,7 +510,7 @@ public class UserService {
      *
      * 处理两种情况：
      * - Number 类型（JSON 数字）：直接转 Long
-     * - String 类型（字符串数字）：用 Long.parseLong 转换
+     * - String 类型（字符串数字）：用 Long.valueOf 转换
      *
      * @param data 包含 id 字段的 Map
      * @return Long 类型的 ID，无法解析时返回 null
@@ -515,7 +519,7 @@ public class UserService {
         Object idObj = data.get("id");
         if (idObj instanceof Number n) return n.longValue();
         if (idObj instanceof String s) {
-            try { return Long.parseLong(s); } catch (NumberFormatException ignored) {}
+            try { return Long.valueOf(s); } catch (NumberFormatException ignored) {}
         }
         return null;
     }

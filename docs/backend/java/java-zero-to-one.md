@@ -31,7 +31,7 @@ class Post {
 - 遇到不理解的地方，先找 TypeScript 类比，再看代码示例
 - 不需要记住所有细节，能读懂项目代码即可
 
-> 本文档专注于**读懂代码**，不涉及如何从零搭建 Java 项目。如需了解项目整体架构（Controller / Service / Repository 三层结构），请参阅 [`JAVA_LEARNING.md`](./JAVA_LEARNING.md)。
+> 本文档专注于**读懂代码**，不涉及如何从零搭建 Java 项目。如需了解项目整体架构（Controller / Service / Repository 三层结构），请参阅 [`JAVA_LEARNING.md`](/backend/spring-boot/backend-knowledge)。
 
 ---
 
@@ -1685,8 +1685,8 @@ public void dofilter(...) { ... }  // ← 编译器报错：Filter 接口没有 
 | 内容 | 看哪里 |
 |------|--------|
 | Java 语法是什么意思（`private`、`@Column` 等） | 本文档（`JAVA_ZERO_TO_ONE.md`） |
-| 项目三层架构（Controller/Service/Repository） | [`JAVA_LEARNING.md`](./JAVA_LEARNING.md) |
-| 练习任务（添加 Comment 实体、分页、验证等） | [`JAVA_LEARNING.md`](./JAVA_LEARNING.md) |
-| Spring Boot 注解速查表 | [`JAVA_LEARNING.md`](./JAVA_LEARNING.md) |
+| 项目三层架构（Controller/Service/Repository） | [`JAVA_LEARNING.md`](/backend/spring-boot/backend-knowledge) |
+| 练习任务（添加 Comment 实体、分页、验证等） | [`JAVA_LEARNING.md`](/backend/spring-boot/backend-knowledge) |
+| Spring Boot 注解速查表 | [`JAVA_LEARNING.md`](/backend/spring-boot/backend-knowledge) |
 
 两份文档互补，建议先读本文档理解语法，再读 `JAVA_LEARNING.md` 了解架构和做练习。

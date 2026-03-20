@@ -19,6 +19,8 @@ import com.example.fetchdemo.common.ApiResponse;
 import com.example.fetchdemo.entity.User;
 import com.example.fetchdemo.service.UserService;
 
+import jakarta.validation.Valid;
+
 /**
  * 用户 CRUD 控制器
  *
@@ -180,7 +182,7 @@ public class DatabaseController {
      * - 200 表示"请求成功"，语义上 201 更准确
      */
     @PostMapping("/db/users")
-    public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
+    public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody User user) {
         user.setId(userService.getNextId());  // 自动分配 ID
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.ok(userService.saveUser(user), "创建成功"));
@@ -196,7 +198,7 @@ public class DatabaseController {
      * 存在则用请求体数据覆盖，保持 ID 不变
      */
     @PutMapping("/db/users/update")
-    public ResponseEntity<ApiResponse<User>> updateUser(@RequestParam Long id, @RequestBody User user) {
+    public ResponseEntity<ApiResponse<User>> updateUser(@RequestParam Long id, @Valid @RequestBody User user) {
         if (userService.getUserById(id).isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.fail("用户不存在，ID: " + id));

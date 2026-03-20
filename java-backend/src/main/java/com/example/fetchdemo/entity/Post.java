@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * 帖子实体类 (Entity)
@@ -67,6 +69,7 @@ public class Post {
     /**
      * 帖子标题
      */
+    @NotBlank
     private String title;
 
     /**
@@ -75,6 +78,8 @@ public class Post {
      * @Column(length = 2000) → 指定数据库列的最大长度为 2000 个字符
      * 默认长度是 255，帖子内容可能更长，所以要手动指定
      */
+    @NotBlank
+    @Size(max = 2000)
     @Column(length = 2000)
     private String body;
 

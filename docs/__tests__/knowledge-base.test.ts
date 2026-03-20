@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { readFileSync, existsSync } from 'node:fs'
-import { resolve, dirname } from 'node:path'
+import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs'
+import { resolve, dirname, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -227,4 +227,108 @@ describe('跨文档链接', () => {
     )
     expect(hasLink).toBe(true)
   })
+})
+
+
+// ── 5. 内部链接校验 ─────────────────────────────────────────────
+
+/** 内部链接信息 */
+export interface InternalLink {
+  text: string
+  href: string
+}
+
+/**
+ * 从 Markdown 内容中提取内部链接，忽略外部链接（http:// 或 https://）和纯锚点链接（#section）。
+ * 带锚点的链接会去除 #section 部分。
+ */
+export function extractInternalLinks(content: string): InternalLink[] {
+  const linkRegex = /\[([^\]]*)\]\(([^)]+)\)/g
+  const links: InternalLink[] = []
+  let match: RegExpExecArray | null
+
+  while ((match = linkRegex.exec(content)) !== null) {
+    const text = match[1]
+    let href = match[2]
+
+    // 忽略外部链接
+    if (/^https?:\/\//.test(href)) continue
+
+    // 忽略纯锚点链接
+    if (href.startsWith('#')) continue
+
+    // 去除锚点部分
+    href = href.split('#')[0]
+
+    links.push({ text, href })
+  }
+
+  return links
+}
+
+/** 递归收集目录下所有 .md 文件（相对于 baseDir 的路径） */
+function collectMarkdownFiles(dir: string, baseDir: string): string[] {
+  const results: string[] = []
+  for (const entry of readdirSync(dir)) {
+    const fullPath = resolve(dir, entry)
+    const stat = statSync(fullPath)
+    if (stat.isDirectory()) {
+      // 跳过 node_modules 和 .vitepress
+      if (entry === 'node_modules' || entry === '.vitepress') continue
+      results.push(...collectMarkdownFiles(fullPath, baseDir))
+    } else if (extname(entry) === '.md') {
+      // 存储相对于 baseDir 的路径
+      results.push(fullPath.slice(baseDir.length + 1))
+    }
+  }
+  return results
+}
+
+/**
+ * 解析内部链接的 href 为文件系统路径，返回是否存在。
+ * - 绝对路径（以 / 开头）相对于 docsDir 解析
+ * - 相对路径相对于当前文件所在目录解析
+ * - 如果路径没有扩展名，依次尝试 path.md 和 path/index.md
+ */
+function resolveInternalLink(href: string, sourceFileRelative: string): boolean {
+  const sourceDir = dirname(resolve(docsDir, sourceFileRelative))
+  const base = href.startsWith('/') ? docsDir : sourceDir
+  const targetBase = resolve(base, href.startsWith('/') ? href.slice(1) : href)
+
+  // 如果路径已有扩展名，直接检查
+  if (extname(targetBase) !== '') {
+    return existsSync(targetBase)
+  }
+
+  // 无扩展名：尝试 path.md 和 path/index.md
+  return existsSync(targetBase + '.md') || existsSync(resolve(targetBase, 'index.md'))
+}
+
+describe('内部链接校验', () => {
+  const mdFiles = collectMarkdownFiles(docsDir, docsDir)
+
+  // 收集所有内部链接及其来源文件
+  const allLinks: { file: string; text: string; href: string }[] = []
+
+  for (const file of mdFiles) {
+    let content: string
+    try {
+      content = readFileSync(resolve(docsDir, file), 'utf-8')
+    } catch {
+      // 跳过无法读取的文件（如编码问题）
+      continue
+    }
+
+    const links = extractInternalLinks(content)
+    for (const link of links) {
+      allLinks.push({ file, text: link.text, href: link.href })
+    }
+  }
+
+  it.each(allLinks)(
+    '$file: [$text]($href) 目标文件应存在',
+    ({ href, file }) => {
+      expect(resolveInternalLink(href, file)).toBe(true)
+    }
+  )
 })

@@ -6,7 +6,7 @@ outline: deep
 
 > 本章讲解如何将 Spring Boot 后端项目部署到云端，包括 TiDB Cloud 数据库配置、Render 容器部署和 Dockerfile 多阶段构建。所有配置文件来自项目真实源码，每行配置都有中文注释。
 >
-> 前置阅读：建议先阅读 [后端知识点详解](/tutorials/backend-knowledge) 了解 Spring Boot 项目结构，再阅读本章效果更佳。
+> 前置阅读：建议先阅读 [后端知识点详解](/backend/spring-boot/backend-knowledge) 了解 Spring Boot 项目结构，再阅读本章效果更佳。
 > 项目详情：参考 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo) 了解完整项目架构。
 
 ## 5.1 TiDB Cloud 数据库配置

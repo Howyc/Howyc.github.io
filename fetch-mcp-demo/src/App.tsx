@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext'
 const LoginPage = lazy(() => import('./components/LoginPage').then(m => ({ default: m.LoginPage })))
 const ApiPlayground = lazy(() => import('./components/ApiPlayground').then(m => ({ default: m.ApiPlayground })))
 
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { UserCardEditable } from './components/UserCardEditable'
 import { PostCard } from './components/PostCard'
@@ -530,6 +531,7 @@ function AppWithAuth() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ErrorBoundary>
         <Routes>
           <Route path="/login" element={
             <Suspense fallback={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#0f1117' }}>
@@ -544,6 +546,7 @@ function AppWithAuth() {
             </ProtectedRoute>
           } />
         </Routes>
+        </ErrorBoundary>
       </AuthProvider>
     </BrowserRouter>
   )

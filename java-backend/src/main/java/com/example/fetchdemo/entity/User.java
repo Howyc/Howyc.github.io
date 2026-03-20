@@ -2,6 +2,10 @@ package com.example.fetchdemo.entity;
 
 // JPA 注解导入
 import jakarta.persistence.*;
+// Bean Validation 注解导入
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
@@ -42,6 +46,8 @@ public class User {
      * - length: 最大长度
      * - nullable: 是否允许为空
      */
+    @NotBlank
+    @Size(max = 100)
     @Column(length = 100)
     private String name;
 
@@ -54,6 +60,7 @@ public class User {
     /**
      * 邮箱地址
      */
+    @Email
     @Column(length = 100)
     private String email;
 
