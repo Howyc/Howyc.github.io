@@ -65,7 +65,7 @@ fetch-mcp-demo/
 
 ## Vite 配置详解
 
-下面是项目中实际使用的 Vite 配置文件，包含 React 插件和 React Compiler 的配置。
+下面是项目中实际使用的 Vite 配置文件，包含 React 插件、React Compiler 和开发辅助插件的配置。
 
 <!-- 来自 fetch-mcp-demo/vite.config.ts -->
 ```typescript
@@ -73,6 +73,8 @@ fetch-mcp-demo/
 import { defineConfig } from 'vite'
 // 导入 Vite 的 React 官方插件，提供 JSX 转换和 Fast Refresh 热更新支持
 import react from '@vitejs/plugin-react'
+// 导入 Click-to-Component 插件，支持在浏览器中 Option+右键点击组件直接跳转到源码
+import { reactClickToComponent } from 'vite-plugin-react-click-to-component'
 
 // 使用 defineConfig 包裹配置对象，获得完整的 TypeScript 类型支持
 export default defineConfig({
@@ -91,6 +93,10 @@ export default defineConfig({
         ],
       },
     }),
+    // Click-to-Component 插件：开发时在浏览器中 Option+右键（Mac）或 Alt+右键（Windows）
+    // 点击任意 React 组件，自动在编辑器中打开对应的源码文件
+    // 只在开发模式下生效，生产构建时会自动移除
+    reactClickToComponent(),
   ],
 })
 ```
@@ -103,6 +109,11 @@ export default defineConfig({
 | `plugins` | 插件数组，Vite 通过插件机制扩展功能 |
 | `@vitejs/plugin-react` | React 官方插件，提供 JSX 编译和 HMR（热模块替换）支持 |
 | `babel-plugin-react-compiler` | React 19 新增的编译器插件，自动优化组件性能 |
+| `vite-plugin-react-click-to-component` | 开发辅助插件，浏览器中点击组件直接跳转到源码 |
+
+::: tip Click-to-Component 使用方法
+开发模式下（`npm run dev`），在浏览器中按住 `Alt`（Windows）或 `Option`（Mac）并右键点击任意页面元素，编辑器会自动打开该组件的源码文件并定位到对应行。这个功能只在开发时生效，不会影响生产构建。
+:::
 
 ::: info React Compiler 是什么？
 React Compiler 是 React 19 引入的编译时优化工具。它在构建阶段分析你的组件代码，自动判断哪些值需要缓存（memoize），从而减少不必要的重渲染。你不再需要手动使用 `useMemo`、`useCallback` 和 `React.memo` 来优化性能。
@@ -375,7 +386,9 @@ createRoot() 创建 React 根节点
     // TypeScript ESLint 集成：让 ESLint 能检查 TypeScript 代码
     "typescript-eslint": "^8.46.4",
     // Vite 构建工具：提供开发服务器、热更新和生产构建
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    // Click-to-Component 插件：开发时在浏览器中点击组件跳转到源码
+    "vite-plugin-react-click-to-component": "^4.2.1"
   }
 }
 ```
@@ -388,6 +401,7 @@ createRoot() 创建 React 根节点
 | 构建工具 | `vite`、`@vitejs/plugin-react`、`babel-plugin-react-compiler` | 开发服务器和生产构建 |
 | 代码检查 | `eslint`、`@eslint/js`、`eslint-plugin-react-hooks`、`eslint-plugin-react-refresh`、`typescript-eslint`、`globals` | 代码质量和风格检查 |
 | 编译器 | `typescript` | TypeScript 类型检查 |
+| 开发辅助 | `vite-plugin-react-click-to-component` | 浏览器中点击组件跳转到源码 |
 
 ### 脚本命令
 
