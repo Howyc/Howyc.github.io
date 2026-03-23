@@ -1,4 +1,4 @@
-# fetch-mcp-demo 项目详解
+# learn-fullstack 项目详解
 
 一个前后端分离的全栈 Demo 项目，展示完整的数据流：外部 API → Java 后端 → 数据库 → React 前端。
 
@@ -74,7 +74,7 @@
 ### 前端目录结构
 
 ```
-fetch-mcp-demo/
+learn-fullstack/
 ├── src/
 │   ├── components/       # 页面组件
 │   │   ├── LoginPage.tsx       # 登录/注册页
@@ -252,7 +252,7 @@ function ProtectedRoute({ children }) {
 1. 打开 [vercel.com](https://vercel.com)，用 GitHub 登录
 2. **Import** → 选择 GitHub 仓库
 3. 配置：
-   - **Root Directory**: `fetch-mcp-demo`
+   - **Root Directory**: `learn-fullstack`
    - **Framework Preset**: `Vite`
 4. 添加环境变量：
 
@@ -303,7 +303,7 @@ name: Deploy Frontend to Vercel
 on:
   push:
     branches: [main]
-    paths: ['fetch-mcp-demo/**']
+    paths: ['learn-fullstack/**']
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -343,7 +343,7 @@ mvn spring-boot:run
 ### 前端
 
 ```bash
-cd fetch-mcp-demo
+cd learn-fullstack
 npm install
 npm run dev
 # 默认启动在 http://localhost:5173
@@ -371,7 +371,7 @@ npm run docs:dev
 
 ### 2. Vercel 部署路径问题
 
-**问题**：GitHub Actions 里用 `working-directory: fetch-mcp-demo`，但 Vercel Dashboard 的 Root Directory 也设置了 `fetch-mcp-demo`，导致路径重复。
+**问题**：GitHub Actions 里用 `working-directory: learn-fullstack`，但 Vercel Dashboard 的 Root Directory 也设置了 `learn-fullstack`，导致路径重复。
 
 **解决**：在仓库根目录创建 `.vercel/project.json`，不用 `working-directory`，让 Vercel Dashboard 的设置来决定构建子目录。
 

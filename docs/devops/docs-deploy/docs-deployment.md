@@ -6,7 +6,7 @@ outline: deep
 
 > 本章讲解如何通过 GitHub Actions 将 VitePress 文档站自动部署到 GitHub Pages。
 >
-> 项目详情：参考 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo) 了解完整项目架构。
+> 项目详情：参考 [learn-fullstack 项目详解](/projects/learn-fullstack) 了解完整项目架构。
 
 ## 7.1 部署架构
 
@@ -136,4 +136,4 @@ jobs:
 3. **检查权限**：确认仓库 Settings → Actions → General 中允许运行工作流
 4. **手动触发**：工作流配置了 `workflow_dispatch`，可以在 Actions 页面手动触发测试
 
-更多项目细节请参考 [fetch-mcp-demo 项目详解](/projects/fetch-mcp-demo)。
+更多项目细节请参考 [learn-fullstack 项目详解](/projects/learn-fullstack)。

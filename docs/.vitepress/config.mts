@@ -103,7 +103,7 @@ export default defineConfig({
           text: '项目实战',
           items: [
             { text: '项目总览', link: '/projects/' },
-            { text: 'fetch-mcp-demo 详解', link: '/projects/fetch-mcp-demo' },
+            { text: 'learn-fullstack 详解', link: '/projects/learn-fullstack' },
           ],
         },
       ],

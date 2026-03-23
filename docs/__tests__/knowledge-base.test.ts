@@ -28,7 +28,7 @@ describe('知识库文件完整性', () => {
     'tools/openclaw/openclaw-guide.md',
     'tools/openclaw/openclaw-installation-journey.md',
     'tools/aigc-learning-path.md',
-    'projects/fetch-mcp-demo.md',
+    'projects/learn-fullstack.md',
     'blog/why-java.md',
   ]
 
@@ -214,9 +214,9 @@ describe('跨文档链接', () => {
     'devops/docs-deploy/docs-deployment.md',
   ]
 
-  it('at least one doc links to /projects/fetch-mcp-demo', () => {
+  it('at least one doc links to /projects/learn-fullstack', () => {
     const hasLink = files.some((f) =>
-      readDoc(f).includes('/projects/fetch-mcp-demo')
+      readDoc(f).includes('/projects/learn-fullstack')
     )
     expect(hasLink).toBe(true)
   })

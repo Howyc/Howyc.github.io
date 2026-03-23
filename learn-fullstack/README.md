@@ -1,4 +1,4 @@
-# Fetch MCP Demo - 全栈数据流演示
+# Learn Fullstack - 全栈数据流演示
 
 使用 Vite + React + Java Spring Boot 的全栈数据流演示应用，展示从外部 API 获取数据、存储到数据库、完整 CRUD 操作的流程。
 
@@ -25,7 +25,7 @@ mvn spring-boot:run
 ### 2. 启动前端开发服务器
 
 ```bash
-cd fetch-mcp-demo
+cd learn-fullstack
 nvm use 22.12.0
 npm install
 npm run dev
@@ -76,7 +76,7 @@ npm run dev
 ## 项目结构
 
 ```
-fetch-mcp-demo/           # 前端项目
+learn-fullstack/           # 前端项目
 ├── src/
 │   ├── components/       # React 组件
 │   ├── services/api.ts   # API 调用

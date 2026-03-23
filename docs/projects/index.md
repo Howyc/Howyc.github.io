@@ -2,7 +2,7 @@
 
 从零到部署的全栈项目实践，记录完整的开发过程和技术选型。
 
-## fetch-mcp-demo
+## learn-fullstack
 
 一个展示前后端完整数据流的全栈 Demo 项目。
 
@@ -17,4 +17,4 @@
 - 内置 API 练习场（类似简化版 Postman）
 - 全免费部署方案（Vercel + Render + TiDB Cloud + GitHub Pages）
 
-[查看详细文档](./fetch-mcp-demo) · [源码](https://github.com/Howyc/Howyc.github.io) · [在线 Demo](https://howyc-github-io.vercel.app)
+[查看详细文档](./learn-fullstack) · [源码](https://github.com/Howyc/Howyc.github.io) · [在线 Demo](https://howyc-github-io.vercel.app)
