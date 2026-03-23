@@ -23,8 +23,8 @@ export function Sidebar({ activeSource, onNavigate, isOpen, onClose }: SidebarPr
       <aside className={`sidebar${isOpen ? ' open' : ''}`}>
         {/* Brand */}
         <div className="sidebar-brand">
-          <div className="sidebar-brand-name">MCP Demo</div>
-          <div className="sidebar-brand-subtitle">全栈数据流</div>
+          <div className="sidebar-brand-name">Learn Fullstack</div>
+          <div className="sidebar-brand-subtitle">全栈学习</div>
         </div>
 
         {/* Navigation */}

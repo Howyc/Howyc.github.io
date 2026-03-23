@@ -141,6 +141,21 @@ export default defineConfig({
     lastUpdated: {
       text: '最后更新',
     },
+
+    outline: {
+      level: [2, 3],
+      label: '目录',
+    },
+
+    returnToTopLabel: '回到顶部',
+
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇',
+    },
+
+    darkModeSwitchLabel: '主题',
+    sidebarMenuLabel: '菜单',
   },
 
   markdown: {
