@@ -7,26 +7,89 @@
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 9999; }
 
-/* Green theme */
-.theme-green {
+/* Hide default VitePress dark mode toggle */
+.VPSwitchAppearance { display: none !important; }
+
+/* ===== Green Light ===== */
+.theme-green-light {
   --vp-c-brand-1: #10b981;
   --vp-c-brand-2: #059669;
   --vp-c-brand-3: #047857;
   --vp-c-brand-soft: rgba(16, 185, 129, 0.14);
+  --vp-c-bg: #f8fdf9;
+  --vp-c-bg-soft: #eef8f0;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-text-1: #1a3a2a;
+  --vp-c-text-2: #3d6b50;
+  --vp-font-family-base: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Purple theme */
-.theme-purple {
+/* ===== Green Dark ===== */
+.theme-green-dark {
+  --vp-c-brand-1: #34d399;
+  --vp-c-brand-2: #10b981;
+  --vp-c-brand-3: #059669;
+  --vp-c-brand-soft: rgba(52, 211, 153, 0.14);
+  --vp-c-bg: #0f1f17;
+  --vp-c-bg-soft: #162b1f;
+  --vp-c-bg-elv: #1a3326;
+  --vp-c-text-1: #d1fae5;
+  --vp-c-text-2: #86c4a0;
+  --vp-font-family-base: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== Purple Light ===== */
+.theme-purple-light {
   --vp-c-brand-1: #8b5cf6;
   --vp-c-brand-2: #7c3aed;
   --vp-c-brand-3: #6d28d9;
   --vp-c-brand-soft: rgba(139, 92, 246, 0.14);
+  --vp-c-bg: #faf8ff;
+  --vp-c-bg-soft: #f0ecff;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-text-1: #1e1040;
+  --vp-c-text-2: #5b4a8a;
+  --vp-font-family-base: 'Georgia', 'Noto Serif SC', serif;
 }
 
-/* Warm theme */
-.theme-warm {
-  --vp-c-brand-1: #f59e0b;
-  --vp-c-brand-2: #d97706;
-  --vp-c-brand-3: #b45309;
-  --vp-c-brand-soft: rgba(245, 158, 11, 0.14);
+/* ===== Purple Dark ===== */
+.theme-purple-dark {
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #8b5cf6;
+  --vp-c-brand-3: #7c3aed;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.14);
+  --vp-c-bg: #110e1f;
+  --vp-c-bg-soft: #1a1530;
+  --vp-c-bg-elv: #211b3a;
+  --vp-c-text-1: #e8e0ff;
+  --vp-c-text-2: #9b8cc4;
+  --vp-font-family-base: 'Georgia', 'Noto Serif SC', serif;
+}
+
+/* ===== Warm Light ===== */
+.theme-warm-light {
+  --vp-c-brand-1: #d97706;
+  --vp-c-brand-2: #b45309;
+  --vp-c-brand-3: #92400e;
+  --vp-c-brand-soft: rgba(217, 119, 6, 0.14);
+  --vp-c-bg: #fffdf5;
+  --vp-c-bg-soft: #fef3cd;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-text-1: #3d2800;
+  --vp-c-text-2: #7a5a1f;
+  --vp-font-family-base: 'Palatino', 'Noto Serif SC', serif;
+}
+
+/* ===== Warm Dark ===== */
+.theme-warm-dark {
+  --vp-c-brand-1: #fbbf24;
+  --vp-c-brand-2: #f59e0b;
+  --vp-c-brand-3: #d97706;
+  --vp-c-brand-soft: rgba(251, 191, 36, 0.14);
+  --vp-c-bg: #1a1408;
+  --vp-c-bg-soft: #2a2010;
+  --vp-c-bg-elv: #332a15;
+  --vp-c-text-1: #fef3c7;
+  --vp-c-text-2: #c4a44a;
+  --vp-font-family-base: 'Palatino', 'Noto Serif SC', serif;
 }
