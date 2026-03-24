@@ -1,3 +1,10 @@
+---
+date: 2025-01-15
+tags: [Java, 全栈, 学习心得]
+series: 全栈之路
+seriesOrder: 1
+---
+
 # 从前端到全栈：我为什么开始学 Java
 
 作为一个 React / TypeScript 开发者，学 Java 的契机很简单——想真正理解后端在做什么。

@@ -112,6 +112,8 @@ export default defineConfig({
           text: '思考与总结',
           items: [
             { text: '所有文章', link: '/blog/' },
+            { text: '标签分类', link: '/blog/tags' },
+            { text: '系列文章', link: '/blog/series' },
             { text: '为什么学 Java', link: '/blog/why-java' },
           ],
         },
