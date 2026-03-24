@@ -1,19 +1,39 @@
 import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
 
-export default defineConfig({
-  // GitHub Pages 部署：仓库名为 howyc.github.io 时 base 为 '/'
-  // 如果仓库名是其他名字（如 my-site），改为 '/my-site/'
+export default withPwa(defineConfig({
   base: '/',
-
   lang: 'zh-CN',
   title: 'Howyc.dev',
   description: '前端工程师的个人知识库 — React · Spring Boot · DevOps · 工程实践',
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
+    // SEO: Open Graph
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'Howyc.dev' }],
+    ['meta', { property: 'og:description', content: '前端工程师的个人知识库 — React · Spring Boot · DevOps · 工程实践' }],
+    ['meta', { property: 'og:url', content: 'https://howyc.github.io/' }],
+    ['meta', { property: 'og:site_name', content: 'Howyc.dev' }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    // SEO: Twitter Card
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:title', content: 'Howyc.dev' }],
+    ['meta', { name: 'twitter:description', content: '前端工程师的个人知识库' }],
+    // SEO: misc
+    ['meta', { name: 'author', content: 'Howyc' }],
+    ['meta', { name: 'robots', content: 'index, follow' }],
+    // PWA
+    ['meta', { name: 'theme-color', content: '#0b0f19' }],
+    ['link', { rel: 'apple-touch-icon', href: '/logo.svg' }],
   ],
 
   appearance: 'dark',
+
+  // Sitemap for SEO
+  sitemap: {
+    hostname: 'https://howyc.github.io',
+  },
 
   themeConfig: {
     logo: '/logo.svg',
@@ -131,12 +151,10 @@ export default defineConfig({
       copyright: 'Copyright © 2025 Howyc',
     },
 
-    // 搜索
     search: {
       provider: 'local',
     },
 
-    // 编辑链接（指向 GitHub 仓库）
     editLink: {
       pattern: 'https://github.com/Howyc/howyc.github.io/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
@@ -166,6 +184,30 @@ export default defineConfig({
     lineNumbers: true,
   },
 
-  // 忽略死链检查（外部链接和跨项目引用）
   ignoreDeadLinks: true,
-})
+
+  // PWA configuration
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Howyc.dev 知识库',
+      short_name: 'Howyc.dev',
+      description: '前端工程师的个人知识库',
+      theme_color: '#0b0f19',
+      background_color: '#0b0f19',
+      display: 'standalone',
+      start_url: '/',
+      icons: [
+        {
+          src: '/logo.svg',
+          sizes: '192x192',
+          type: 'image/svg+xml',
+          purpose: 'any maskable',
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+    },
+  },
+}))
