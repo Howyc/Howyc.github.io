@@ -15,9 +15,9 @@ function loadGiscus() {
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
   script.setAttribute('data-repo', 'Howyc/howyc.github.io')
-  script.setAttribute('data-repo-id', 'R_kgDORlDE5A')
+  script.setAttribute('data-repo-id', 'R_kgDORiDE5A')
   script.setAttribute('data-category', 'General')
-  script.setAttribute('data-category-id', 'DIC_kwDORlDE5M4C5Ewz')
+  script.setAttribute('data-category-id', 'DIC_kwDORiDE5M4C5Ewz')
   script.setAttribute('data-mapping', 'pathname')
   script.setAttribute('data-strict', '0')
   script.setAttribute('data-reactions-enabled', '1')
