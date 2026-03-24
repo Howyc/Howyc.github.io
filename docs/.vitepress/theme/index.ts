@@ -13,7 +13,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'layout-top': () => h(ReadingProgress),
-      'nav-bar-content-after': () => h(ThemeSwitcher),
+      'nav-bar-content-before': () => h(ThemeSwitcher),
       'doc-after': () => h(GiscusComment),
       'doc-before': () => h(ArticleMeta),
     })
