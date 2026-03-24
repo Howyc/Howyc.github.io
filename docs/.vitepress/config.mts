@@ -87,21 +87,29 @@ export default withPwa(defineConfig({
       ],
       '/devops/': [
         {
-          text: '前端部署',
+          text: '容器化',
+          items: [
+            { text: 'Docker Compose 本地开发', link: '/devops/container/docker-compose-dev' },
+          ],
+        },
+        {
+          text: 'CI/CD',
+          items: [
+            { text: 'CI/CD 持续集成与部署', link: '/devops/cicd/cicd-pipeline' },
+          ],
+        },
+        {
+          text: '部署实践',
           items: [
             { text: '前端部署', link: '/devops/frontend-deploy/frontend-deployment' },
-          ],
-        },
-        {
-          text: '后端部署',
-          items: [
             { text: '后端部署', link: '/devops/backend-deploy/backend-deployment' },
+            { text: '文档站部署', link: '/devops/docs-deploy/docs-deployment' },
           ],
         },
         {
-          text: '文档站部署',
+          text: '监控与日志',
           items: [
-            { text: '文档站部署', link: '/devops/docs-deploy/docs-deployment' },
+            { text: '监控与日志概念', link: '/devops/monitoring/monitoring-logging' },
           ],
         },
       ],
