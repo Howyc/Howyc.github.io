@@ -13,6 +13,8 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
 
+  appearance: 'dark',
+
   themeConfig: {
     logo: '/logo.svg',
     siteTitle: 'Howyc.dev',

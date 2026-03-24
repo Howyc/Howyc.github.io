@@ -1,95 +1,192 @@
-/* View Transition animation */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+/* View Transition */
+::view-transition-old(root) {
+  animation: 0.3s ease-out both fade-out;
+  z-index: 1;
 }
-::view-transition-old(root) { z-index: 1; }
-::view-transition-new(root) { z-index: 9999; }
+::view-transition-new(root) {
+  animation: 0.3s ease-out both fade-in;
+  z-index: 9999;
+}
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
 
-/* Hide default VitePress dark mode toggle */
+/* Hide default toggle */
 .VPSwitchAppearance { display: none !important; }
 
-/* ===== Green Light ===== */
-.theme-green-light {
+/* Smooth transitions for theme changes */
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== 🌙 午夜 (Midnight) — 默认暗色 ===== */
+.theme-midnight {
+  --vp-c-brand-1: #60a5fa;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #2563eb;
+  --vp-c-brand-soft: rgba(96, 165, 250, 0.12);
+  --vp-c-bg: #0b0f19;
+  --vp-c-bg-soft: #111827;
+  --vp-c-bg-elv: #1a2332;
+  --vp-c-divider: #1e2d3d;
+  --vp-c-text-1: #e2e8f0;
+  --vp-c-text-2: #94a3b8;
+  --vp-c-text-3: #64748b;
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --vp-code-bg: #151e2e;
+  --vp-c-tip-1: #60a5fa;
+  --vp-c-tip-soft: rgba(96, 165, 250, 0.08);
+}
+
+/* ===== ☀️ 日光 (Daylight) — 默认亮色 ===== */
+.theme-daylight {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #1e40af;
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.1);
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f1f5f9;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-divider: #e2e8f0;
+  --vp-c-text-1: #1e293b;
+  --vp-c-text-2: #475569;
+  --vp-c-text-3: #94a3b8;
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --vp-code-bg: #f1f5f9;
+}
+
+/* ===== 🌊 深海 (Ocean) ===== */
+.theme-ocean {
+  --vp-c-brand-1: #22d3ee;
+  --vp-c-brand-2: #06b6d4;
+  --vp-c-brand-3: #0891b2;
+  --vp-c-brand-soft: rgba(34, 211, 238, 0.1);
+  --vp-c-bg: #041c2c;
+  --vp-c-bg-soft: #062640;
+  --vp-c-bg-elv: #0a3050;
+  --vp-c-divider: #0e3d5e;
+  --vp-c-text-1: #cffafe;
+  --vp-c-text-2: #67e8f9;
+  --vp-c-text-3: #22a3b8;
+  --vp-font-family-base: 'Menlo', 'Monaco', 'Consolas', monospace;
+  --vp-code-bg: #062a42;
+  --vp-sidebar-bg-color: #031825;
+}
+
+/* ===== 🌸 樱花 (Sakura) ===== */
+.theme-sakura {
+  --vp-c-brand-1: #ec4899;
+  --vp-c-brand-2: #db2777;
+  --vp-c-brand-3: #be185d;
+  --vp-c-brand-soft: rgba(236, 72, 153, 0.1);
+  --vp-c-bg: #fff5f7;
+  --vp-c-bg-soft: #ffe4ec;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-divider: #fecdd3;
+  --vp-c-text-1: #4a1028;
+  --vp-c-text-2: #9d4060;
+  --vp-c-text-3: #d4748e;
+  --vp-font-family-base: 'Georgia', 'Noto Serif SC', 'STSong', serif;
+  --vp-code-bg: #fff0f3;
+}
+
+/* ===== 🌲 森林 (Forest) ===== */
+.theme-forest {
+  --vp-c-brand-1: #4ade80;
+  --vp-c-brand-2: #22c55e;
+  --vp-c-brand-3: #16a34a;
+  --vp-c-brand-soft: rgba(74, 222, 128, 0.1);
+  --vp-c-bg: #071209;
+  --vp-c-bg-soft: #0d1f12;
+  --vp-c-bg-elv: #132a18;
+  --vp-c-divider: #1a3a22;
+  --vp-c-text-1: #dcfce7;
+  --vp-c-text-2: #86efac;
+  --vp-c-text-3: #4ade80;
+  --vp-font-family-base: 'Fira Code', 'Cascadia Code', monospace;
+  --vp-code-bg: #0a1a0e;
+}
+
+/* ===== 🍃 薄荷 (Mint) ===== */
+.theme-mint {
   --vp-c-brand-1: #10b981;
   --vp-c-brand-2: #059669;
   --vp-c-brand-3: #047857;
-  --vp-c-brand-soft: rgba(16, 185, 129, 0.14);
-  --vp-c-bg: #f8fdf9;
-  --vp-c-bg-soft: #eef8f0;
+  --vp-c-brand-soft: rgba(16, 185, 129, 0.1);
+  --vp-c-bg: #f0fdf4;
+  --vp-c-bg-soft: #dcfce7;
   --vp-c-bg-elv: #ffffff;
-  --vp-c-text-1: #1a3a2a;
-  --vp-c-text-2: #3d6b50;
-  --vp-font-family-base: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --vp-c-divider: #bbf7d0;
+  --vp-c-text-1: #14532d;
+  --vp-c-text-2: #166534;
+  --vp-c-text-3: #4ade80;
+  --vp-font-family-base: 'Avenir', 'Nunito', -apple-system, sans-serif;
+  --vp-code-bg: #ecfdf5;
 }
 
-/* ===== Green Dark ===== */
-.theme-green-dark {
-  --vp-c-brand-1: #34d399;
-  --vp-c-brand-2: #10b981;
-  --vp-c-brand-3: #059669;
-  --vp-c-brand-soft: rgba(52, 211, 153, 0.14);
-  --vp-c-bg: #0f1f17;
-  --vp-c-bg-soft: #162b1f;
-  --vp-c-bg-elv: #1a3326;
-  --vp-c-text-1: #d1fae5;
-  --vp-c-text-2: #86c4a0;
-  --vp-font-family-base: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+/* ===== 🪐 星云 (Nebula) ===== */
+.theme-nebula {
+  --vp-c-brand-1: #c084fc;
+  --vp-c-brand-2: #a855f7;
+  --vp-c-brand-3: #9333ea;
+  --vp-c-brand-soft: rgba(192, 132, 252, 0.1);
+  --vp-c-bg: #0f0720;
+  --vp-c-bg-soft: #1a0e35;
+  --vp-c-bg-elv: #241548;
+  --vp-c-divider: #2e1a5e;
+  --vp-c-text-1: #f3e8ff;
+  --vp-c-text-2: #c4b5fd;
+  --vp-c-text-3: #8b5cf6;
+  --vp-font-family-base: 'SF Mono', 'JetBrains Mono', monospace;
+  --vp-code-bg: #150d30;
 }
 
-/* ===== Purple Light ===== */
-.theme-purple-light {
+/* ===== 💜 薰衣草 (Lavender) ===== */
+.theme-lavender {
   --vp-c-brand-1: #8b5cf6;
   --vp-c-brand-2: #7c3aed;
   --vp-c-brand-3: #6d28d9;
-  --vp-c-brand-soft: rgba(139, 92, 246, 0.14);
-  --vp-c-bg: #faf8ff;
-  --vp-c-bg-soft: #f0ecff;
+  --vp-c-brand-soft: rgba(139, 92, 246, 0.1);
+  --vp-c-bg: #faf5ff;
+  --vp-c-bg-soft: #f3e8ff;
   --vp-c-bg-elv: #ffffff;
-  --vp-c-text-1: #1e1040;
-  --vp-c-text-2: #5b4a8a;
-  --vp-font-family-base: 'Georgia', 'Noto Serif SC', serif;
+  --vp-c-divider: #e9d5ff;
+  --vp-c-text-1: #2e1065;
+  --vp-c-text-2: #6b21a8;
+  --vp-c-text-3: #a78bfa;
+  --vp-font-family-base: 'Palatino', 'Book Antiqua', 'Noto Serif SC', serif;
+  --vp-code-bg: #f5f0ff;
 }
 
-/* ===== Purple Dark ===== */
-.theme-purple-dark {
-  --vp-c-brand-1: #a78bfa;
-  --vp-c-brand-2: #8b5cf6;
-  --vp-c-brand-3: #7c3aed;
-  --vp-c-brand-soft: rgba(167, 139, 250, 0.14);
-  --vp-c-bg: #110e1f;
-  --vp-c-bg-soft: #1a1530;
-  --vp-c-bg-elv: #211b3a;
-  --vp-c-text-1: #e8e0ff;
-  --vp-c-text-2: #9b8cc4;
-  --vp-font-family-base: 'Georgia', 'Noto Serif SC', serif;
+/* ===== 🔥 余烬 (Ember) ===== */
+.theme-ember {
+  --vp-c-brand-1: #fb923c;
+  --vp-c-brand-2: #f97316;
+  --vp-c-brand-3: #ea580c;
+  --vp-c-brand-soft: rgba(251, 146, 60, 0.1);
+  --vp-c-bg: #1a0e05;
+  --vp-c-bg-soft: #2a1608;
+  --vp-c-bg-elv: #3a200e;
+  --vp-c-divider: #4a2a12;
+  --vp-c-text-1: #ffedd5;
+  --vp-c-text-2: #fdba74;
+  --vp-c-text-3: #c2410c;
+  --vp-font-family-base: 'Courier New', 'Source Code Pro', monospace;
+  --vp-code-bg: #221208;
 }
 
-/* ===== Warm Light ===== */
-.theme-warm-light {
+/* ===== 🏜️ 沙漠 (Sand) ===== */
+.theme-sand {
   --vp-c-brand-1: #d97706;
   --vp-c-brand-2: #b45309;
   --vp-c-brand-3: #92400e;
-  --vp-c-brand-soft: rgba(217, 119, 6, 0.14);
-  --vp-c-bg: #fffdf5;
-  --vp-c-bg-soft: #fef3cd;
+  --vp-c-brand-soft: rgba(217, 119, 6, 0.1);
+  --vp-c-bg: #fefce8;
+  --vp-c-bg-soft: #fef9c3;
   --vp-c-bg-elv: #ffffff;
-  --vp-c-text-1: #3d2800;
-  --vp-c-text-2: #7a5a1f;
-  --vp-font-family-base: 'Palatino', 'Noto Serif SC', serif;
-}
-
-/* ===== Warm Dark ===== */
-.theme-warm-dark {
-  --vp-c-brand-1: #fbbf24;
-  --vp-c-brand-2: #f59e0b;
-  --vp-c-brand-3: #d97706;
-  --vp-c-brand-soft: rgba(251, 191, 36, 0.14);
-  --vp-c-bg: #1a1408;
-  --vp-c-bg-soft: #2a2010;
-  --vp-c-bg-elv: #332a15;
-  --vp-c-text-1: #fef3c7;
-  --vp-c-text-2: #c4a44a;
-  --vp-font-family-base: 'Palatino', 'Noto Serif SC', serif;
+  --vp-c-divider: #fde68a;
+  --vp-c-text-1: #422006;
+  --vp-c-text-2: #854d0e;
+  --vp-c-text-3: #ca8a04;
+  --vp-font-family-base: 'Cambria', 'Noto Serif SC', serif;
+  --vp-code-bg: #fefce8;
 }
