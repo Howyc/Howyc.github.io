@@ -35,6 +35,7 @@ function apply(id: string) {
     doc.classList.add(`theme-${id}`)
 
     // Sync VitePress dark mode
+    // ⚠️ 依赖 VitePress 内部 DOM 结构（.VPSwitchAppearance），升级 VitePress 时需验证
     if (theme.dark !== isDark.value) {
       document.querySelector<HTMLButtonElement>('.VPSwitchAppearance')?.click()
     }

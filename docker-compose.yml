@@ -11,9 +11,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       - SPRING_PROFILES_ACTIVE=default
-      - JWT_SECRET=dGhpcyBpcyBhIHZlcnkgbG9uZyBzZWNyZXQga2V5IGZvciBkZXZlbG9wbWVudA==
     volumes:
       - backend-data:/app/data
     healthcheck:

@@ -12,6 +12,7 @@ java-backend/*.jar
 .idea/
 *.iml
 
+.kiro
 # OS
 .DS_Store
 Thumbs.db
