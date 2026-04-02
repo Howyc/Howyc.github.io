@@ -872,9 +872,228 @@ SECRET_KEY=abc                            # 前端无法访问，只有服务端
 | 2 | `.env.production` / `.env.development` | 特定环境配置 |
 | 3（最低） | `.env` | 所有环境的默认配置 |
 
+## 进阶 React 模式
+
+本节讲解项目中使用的进阶 React 模式：性能优化、代码分割和错误边界。
+
+### useMemo — 性能优化
+
+`useMemo` 用于缓存计算结果，避免每次渲染都重新计算。只有当依赖项变化时才会重新执行计算函数。
+
+::: info 什么时候用 useMemo？
+当你有一个计算量较大的操作（如表单校验、数据过滤、排序），并且这个操作的输入不是每次渲染都变化时，用 `useMemo` 可以避免不必要的重复计算。
+:::
+
+来自 `learn-fullstack/src/components/EditModal.tsx`
+
+```tsx
+// 从 react 导入 useMemo Hook
+import { useState, useEffect, useMemo } from 'react'
+
+function EditModal({ type, data, isNew, onSave, onClose }) {
+  // formData 是表单数据状态，用户每次输入都会更新
+  const [formData, setFormData] = useState({})
+
+  // useMemo 缓存校验结果
+  // 只有当 formData 或 type 变化时，才重新执行校验函数
+  // 如果不用 useMemo，每次组件渲染都会重新校验（即使数据没变）
+  const errors = useMemo(() => {
+    // 根据类型选择不同的校验函数
+    return type === 'user' ? validateUser(formData) : validatePost(formData)
+  }, [formData, type])  // ← 依赖数组：只有这两个值变化时才重新计算
+
+  // 根据校验结果判断是否有错误
+  const hasErrors = Object.keys(errors).length > 0
+
+  // 提交时禁用按钮
+  return (
+    <button type="submit" disabled={hasErrors}>保存</button>
+  )
+}
+```
+
+**useMemo vs 直接计算：**
+
+| 方式 | 行为 | 适用场景 |
+|------|------|---------|
+| 直接计算 `const errors = validate(formData)` | 每次渲染都执行 | 计算很轻量 |
+| `useMemo(() => validate(formData), [formData])` | 只在依赖变化时执行 | 计算较重或渲染频繁 |
+
+### lazy + Suspense — 路由级代码分割
+
+`React.lazy` 和 `Suspense` 配合使用，实现按需加载组件。用户访问某个页面时才下载对应的 JS 文件，减小首屏加载体积。
+
+来自 `learn-fullstack/src/App.tsx`
+
+```tsx
+// lazy 用于动态导入组件，Suspense 用于显示加载状态
+import { lazy, Suspense } from 'react'
+
+// lazy() 接收一个返回 import() 的函数
+// 只有当组件第一次被渲染时，才会下载对应的 JS 文件
+// .then(m => ({ default: m.LoginPage })) 是因为组件不是默认导出
+const LoginPage = lazy(() =>
+  import('./components/LoginPage').then(m => ({ default: m.LoginPage }))
+)
+const ApiPlayground = lazy(() =>
+  import('./components/ApiPlayground').then(m => ({ default: m.ApiPlayground }))
+)
+
+function App() {
+  return (
+    // Suspense 包裹懒加载组件，fallback 是加载中显示的内容
+    // 当 LoginPage 的 JS 文件还在下载时，显示 "加载中..."
+    <Suspense fallback={<div>加载中...</div>}>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/playground" element={<ApiPlayground />} />
+      </Routes>
+    </Suspense>
+  )
+}
+```
+
+**代码分割的效果：**
+
+```
+不使用 lazy：
+  bundle.js (500KB) ← 包含所有页面代码，首屏全部下载
+
+使用 lazy：
+  bundle.js (200KB)        ← 首屏只下载核心代码
+  LoginPage.chunk.js (50KB)    ← 访问 /login 时才下载
+  ApiPlayground.chunk.js (250KB) ← 访问 /playground 时才下载
+```
+
+### ErrorBoundary — 错误边界
+
+ErrorBoundary 是 React 的错误捕获机制，当子组件抛出异常时，显示降级 UI 而不是白屏。这是目前唯一需要用 Class 组件实现的 React 特性。
+
+::: warning 为什么用 Class 组件？
+React 目前没有提供 Hook 版本的 `getDerivedStateFromError` 和 `componentDidCatch`。ErrorBoundary 是唯一需要 Class 组件的场景。
+:::
+
+来自 `learn-fullstack/src/components/ErrorBoundary.tsx`
+
+```tsx
+import { Component } from 'react'
+import type { ReactNode, ErrorInfo } from 'react'
+
+// Props 类型：接收子组件
+interface ErrorBoundaryProps {
+  children: ReactNode
+}
+
+// State 类型：是否有错误 + 错误对象
+interface ErrorBoundaryState {
+  hasError: boolean
+  error: Error | null
+}
+
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props)
+    // 初始状态：没有错误
+    this.state = { hasError: false, error: null }
+  }
+
+  // 静态方法：当子组件抛出错误时，React 调用此方法更新 state
+  // 返回新的 state，触发重新渲染显示降级 UI
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error }
+  }
+
+  // 生命周期方法：捕获错误后调用，用于记录错误日志
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error('[ErrorBoundary]', error, errorInfo)
+  }
+
+  // 重试：清除错误状态，重新渲染子组件
+  handleRetry = () => {
+    this.setState({ hasError: false, error: null })
+  }
+
+  render() {
+    // 有错误时显示降级 UI
+    if (this.state.hasError) {
+      return (
+        <div>
+          <h2>页面出现了问题</h2>
+          <p>{this.state.error?.message || '发生了未知错误'}</p>
+          <button onClick={this.handleRetry}>重试</button>
+        </div>
+      )
+    }
+    // 没有错误时正常渲染子组件
+    return this.props.children
+  }
+}
+```
+
+**使用方式：**
+
+```tsx
+// 在 App 最外层包裹 ErrorBoundary
+<ErrorBoundary>
+  <App />
+</ErrorBoundary>
+```
+
+**ErrorBoundary 能捕获什么？**
+
+| 能捕获 | 不能捕获 |
+|--------|---------|
+| 渲染过程中的错误 | 事件处理函数中的错误 |
+| 生命周期方法中的错误 | 异步代码（setTimeout、Promise） |
+| 子组件树中的错误 | 服务端渲染的错误 |
+
+## 组件架构总览
+
+项目的 React 组件按职责分为以下几类：
+
+| 组件 | 类型 | 职责 |
+|------|------|------|
+| `App.tsx` | 页面容器 | 管理全局状态、数据操作、路由 |
+| `LoginPage.tsx` | 页面组件 | 登录/注册表单 |
+| `ProtectedRoute.tsx` | 路由守卫 | 检查认证状态，未登录跳转 |
+| `Sidebar.tsx` | 布局组件 | 侧边栏导航 |
+| `TopBar.tsx` | 布局组件 | 顶部栏、用户信息、登出 |
+| `UserCardEditable.tsx` | 数据展示 | 用户卡片（编辑/删除） |
+| `PostCard.tsx` | 数据展示 | 帖子卡片（编辑/删除） |
+| `EditModal.tsx` | 表单组件 | 新增/编辑弹窗（含校验） |
+| `SkeletonCard.tsx` | UI 组件 | 加载骨架屏 |
+| `ErrorBoundary.tsx` | 错误处理 | 捕获渲染错误，显示降级 UI |
+| `ApiPlayground.tsx` | 工具页面 | API 测试面板 |
+
+### 数据流向
+
+```
+用户操作 → App.tsx（状态管理）→ api.ts（发请求）→ 后端 API
+                ↓
+         子组件通过 props 接收数据和回调函数
+                ↓
+    UserCardEditable / PostCard / EditModal（展示和交互）
+```
+
+### 认证流向
+
+```
+LoginPage → api.ts login() → 后端 /auth/login → 返回 JWT
+    ↓
+AuthContext.login(token) → localStorage 存储 → 全局状态更新
+    ↓
+ProtectedRoute 检查 isAuthenticated → 放行或跳转 /login
+    ↓
+authFetch() 自动携带 Authorization: Bearer <token>
+    ↓
+后端 JwtFilter 验证 token → 放行或返回 401
+    ↓
+401 → unwrap() 触发 auth:logout 事件 → App.tsx 监听 → logout + 跳转
+```
+
 ## 小结
 
-本章我们深入讲解了项目中使用的六大前端核心技术：
+本章我们深入讲解了项目中使用的前端核心技术：
 
 1. **React Hooks** — `useState` 管理状态、`useEffect` 处理副作用、`useContext` 共享全局数据
 2. **TypeScript 类型定义** — `interface` 定义数据模型、泛型 `ApiResponse<T>` 统一响应格式、联合类型约束取值范围、类型守卫安全收窄类型
@@ -882,6 +1101,7 @@ SECRET_KEY=abc                            # 前端无法访问，只有服务端
 4. **AuthContext** — Context 创建、Provider 提供数据、`useAuth` 消费数据、JWT Token 持久化存储
 5. **API 请求封装** — `authFetch` 自动携带 Token、`unwrap` 统一解包响应和错误处理、401 自动登出
 6. **环境变量** — `.env.local` / `.env.production` 区分环境、`import.meta.env` 访问变量、`VITE_` 前缀安全机制
+7. **进阶模式** — `useMemo` 性能优化、`lazy` + `Suspense` 代码分割、`ErrorBoundary` 错误边界、组件架构设计
 
 这些技术构成了前端应用的核心骨架。下一章我们将进入后端世界，用前端开发者熟悉的视角来理解 Spring Boot 的三层架构和 JWT 认证。
 

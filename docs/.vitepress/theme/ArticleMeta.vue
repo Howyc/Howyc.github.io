@@ -7,7 +7,12 @@ const { frontmatter } = useData()
 const tags = computed(() => frontmatter.value.tags || [])
 const series = computed(() => frontmatter.value.series || '')
 const seriesOrder = computed(() => frontmatter.value.seriesOrder || 0)
-const date = computed(() => frontmatter.value.date || '')
+const date = computed(() => {
+  const raw = frontmatter.value.date || ''
+  if (!raw) return ''
+  // 处理 ISO 格式日期，只取 YYYY-MM-DD 部分
+  return String(raw).slice(0, 10)
+})
 
 const readingTime = ref('')
 

@@ -8,8 +8,11 @@ const container = ref<HTMLElement>()
 
 function loadGiscus() {
   if (!container.value) return
-  // Don't show on index pages
+  // Don't show on index pages, home layout, or pages with comment: false
   if (frontmatter.value.layout === 'home' || frontmatter.value.comment === false) return
+  // Skip index pages (paths ending with / or /index)
+  const path = route.path
+  if (path.endsWith('/') || path.endsWith('/index') || path.endsWith('/index.html')) return
 
   container.value.innerHTML = ''
   const script = document.createElement('script')

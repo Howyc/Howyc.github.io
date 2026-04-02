@@ -1,6 +1,6 @@
 # 前端工程
 
-前端开发相关的知识和实践，涵盖 React 开发、TypeScript 和工程化实践。
+前端开发相关的知识和实践，涵盖 React 开发、TypeScript、VitePress 文档站和工程化实践。
 
 ## TypeScript
 
@@ -9,6 +9,10 @@
 ## React 开发
 
 - [前端知识点详解](./react/frontend-knowledge) — React Hooks、路由守卫、认证上下文、API 封装
+
+## VitePress 文档站
+
+- [VitePress 主题开发指南](./vitepress/vitepress-theme-guide) — Vue 3 组件、主题系统、博客功能、第三方集成
 
 ## 工程化实践
 

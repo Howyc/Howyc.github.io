@@ -64,6 +64,12 @@ export default withPwa(defineConfig({
           ],
         },
         {
+          text: 'VitePress 文档站',
+          items: [
+            { text: 'VitePress 主题开发指南', link: '/frontend/vitepress/vitepress-theme-guide' },
+          ],
+        },
+        {
           text: '工程化实践',
           items: [
             { text: '前端项目创建', link: '/frontend/engineering/project-setup' },
